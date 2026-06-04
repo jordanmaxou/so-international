@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HubSpot - Vue Consolidée GSO</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons for visual aids -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hubspot: {
+                            orange: '#ff7a59',
+                            dark: '#2d3e50',
+                            lightBg: '#f5f8fa',
+                            border: '#cbd6e2',
+                            textDark: '#33475b',
+                            blueHover: '#eaf0f6'
+                        },
+                        gso: {
+                            soBlue: '#004b6e',
+                            clOrange: '#f37023',
+                            repRed: '#e30613',
+                            dlYellow: '#ffcb05'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transition style for interactive tabs and buttons */
+        .transition-all-custom {
+            transition: all 0.2s ease-in-out;
+        }
+        /* Custom scrollbar to look like HubSpot */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd6e2;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-[#f5f8fa] text-slate-700 font-sans min-h-screen flex flex-col antialiased">
+
+    <!-- HubSpot Style Navigation Top Bar -->
+    <header class="bg-[#2d3e50] text-white h-14 px-6 flex items-center justify-between border-b border-slate-700 shrink-0 sticky top-0 z-50">
+        <div class="flex items-center space-x-6">
+            <!-- HubSpot Sprocket Logo & Title -->
+            <div class="flex items-center space-x-2">
+                <svg class="w-6 h-6 text-[#ff7a59] fill-current" viewBox="0 0 24 24">
+                    <path d="M18.8,11.5c-0.8,0-1.5,0.4-1.9,1.1l-3.2-1.4c0.1-0.3,0.1-0.6,0.1-0.9c0-2-1.6-3.6-3.6-3.6s-3.6,1.6-3.6,3.6c0,0.5,0.1,1,0.3,1.4L4,13.1c-0.7-0.7-1.8-0.7-2.5,0c-0.7,0.7-0.7,1.8,0,2.5c0.7,0.7,1.8,0.7,2.5,0c0.3-0.3,0.5-0.7,0.5-1.1l2.8-1.3c0.4,0.7,1.1,1.1,1.9,1.1c0.1,0,0.2,0,0.3,0l1.4,3.2c-0.4,0.4-0.6,0.9-0.6,1.5c0,1.2,1,2.2,2.2,2.2s2.2-1,2.2-2.2c0-0.6-0.2-1.1-0.6-1.5l1.4-3.2C18.1,14.4,18.8,14.4,18.8,14.4z"/>
+                </svg>
+                <span class="font-bold text-sm tracking-wide">HUBSPOT</span>
+                <span class="text-xs text-slate-400">|</span>
+                <span class="text-xs font-semibold bg-[#004b6e] text-white px-2 py-0.5 rounded">GSO DATA & APPS</span>
+            </div>
+            <!-- Global Navigation Tabs (Dummy) -->
+            <nav class="hidden md:flex space-x-4 text-sm font-medium">
+                <a href="#" class="text-slate-300 hover:text-white px-2 py-1 rounded transition-all-custom">Contacts</a>
+                <a href="#" class="text-slate-300 hover:text-white px-2 py-1 rounded transition-all-custom">Conversations</a>
+                <a href="#" class="text-[#ff7a59] border-b-2 border-[#ff7a59] px-2 py-1">Service Client</a>
+                <a href="#" class="text-slate-300 hover:text-white px-2 py-1 rounded transition-all-custom">Rapports</a>
+            </nav>
+        </div>
+
+        <!-- Global Search bar & User Identity -->
+        <div class="flex items-center space-x-4">
+            <div class="relative hidden sm:block">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                </span>
+                <input type="text" placeholder="Rechercher un abonné..." class="bg-slate-800 text-white text-xs rounded-md pl-8 pr-3 py-1.5 w-60 focus:outline-none focus:ring-1 focus:ring-[#ff7a59] transition-all-custom">
+            </div>
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-full bg-gso-soBlue flex items-center justify-center text-xs font-bold border border-slate-600">
+                    ML
+                </div>
+                <div class="hidden lg:block text-left">
+                    <p class="text-xs font-semibold">Maxime Lasserre</p>
+                    <p class="text-[10px] text-slate-400">Product Owner GSOI</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Secondary Bar / Header Contact Information -->
+    <div class="bg-white border-b border-slate-200 px-6 py-4 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+        <div>
+            <!-- Breadcrumbs -->
+            <div class="flex items-center space-x-2 text-xs text-slate-500 mb-1">
+                <a href="#" class="hover:underline">Abonnés</a>
+                <i class="fa-solid fa-chevron-right text-[8px]"></i>
+                <span class="font-medium text-slate-800">Jean-Pierre Lartigau (Aquitaine)</span>
+            </div>
+            <!-- Main Contact Header Line -->
+            <div class="flex flex-wrap items-center gap-3">
+                <h1 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    Jean-Pierre Lartigau 
+                    <span class="text-xs font-normal text-slate-400 font-mono">(Abonné #SO-873921-A)</span>
+                </h1>
+                <!-- Dynamic Badges -->
+                <div class="flex gap-1.5">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                        <span class="w-1.5 h-1.5 mr-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Actif
+                    </span>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+                        🏆 Fort engagement
+                    </span>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-800">
+                        👤 Particulier
+                    </span>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-[#004b6e] text-white">
+                        SUD OUEST
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK ACCESS METIER APPLICATIONS (Priority Business Apps Header Trigger) -->
+        <div class="flex flex-wrap gap-2.5">
+            <span class="text-xs font-bold text-slate-400 self-center mr-1">Raccourcis Métiers :</span>
+            <!-- Shipo Access -->
+            <a href="https://shipo.gsoi.fr/client/SO-873921-A" target="_blank" class="inline-flex items-center px-3.5 py-2 bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white text-xs font-bold rounded-md shadow-sm transition-all-custom">
+                <i class="fa-solid fa-truck-fast mr-2"></i> Ouvrir dans SHIPO
+            </a>
+            <!-- Bishop Access -->
+            <a href="https://bishop.gsoi.fr/subscriber/SO-873921-A" target="_blank" class="inline-flex items-center px-3.5 py-2 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white text-xs font-bold rounded-md shadow-sm transition-all-custom">
+                <i class="fa-solid fa-receipt mr-2"></i> Ouvrir dans BISHOP
+            </a>
+            <!-- Interactive Demo Action: Toggle Delivery Incident -->
+            <button onclick="toggleDeliveryAlert()" class="inline-flex items-center px-3 py-2 border border-rose-300 hover:bg-rose-50 text-rose-700 text-xs font-semibold rounded-md transition-all-custom" id="trigger-delivery-btn">
+                <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Simuler Incident Logistique
+            </button>
+        </div>
+    </div>
+
+    <!-- Alert Banner inside UI - Controlled by JS -->
+    <div id="logistics-alert-banner" class="bg-rose-50 border-b border-rose-200 px-6 py-2.5 flex items-center justify-between text-xs text-rose-800 hidden">
+        <div class="flex items-center space-x-2">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+            </span>
+            <span class="font-bold uppercase tracking-wider bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded text-[10px]">Alerte Livraison</span>
+            <span>Un problème de livraison (non-distribution signalée par le lecteur) est en cours de traitement sur l'édition papier d'aujourd'hui.</span>
+        </div>
+        <button onclick="resolveDeliveryAlert()" class="underline font-semibold hover:text-rose-950">Marquer comme résolu</button>
+    </div>
+
+    <!-- MAIN CRM INTERFACE CONTAINER (3 Columns Grid) -->
+    <main class="flex-1 p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-y-auto max-w-[1920px] mx-full w-full">
+
+        <!-- LEFT COLUMN: Contact Identity & General Information (4/12 width) -->
+        <section class="lg:col-span-4 space-y-6">
+            
+            <!-- Widget 1: About this Contact / Info Générales -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+                    <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-slate-400"></i>
+                        Informations Générales
+                    </h2>
+                    <span class="text-xs text-emerald-600 font-medium flex items-center gap-1">
+                        <i class="fa-solid fa-link text-[10px]"></i> Données BigQuery à jour
+                    </span>
+                </div>
+                
+                <div class="p-4 space-y-4 text-xs">
+                    <!-- Name -->
+                    <div class="flex justify-between py-1.5 border-b border-slate-100">
+                        <span class="text-slate-500">Nom & Prénom</span>
+                        <span class="font-semibold text-slate-800">Lartigau Jean-Pierre</span>
+                    </div>
+
+                    <!-- Client Number -->
+                    <div class="flex justify-between py-1.5 border-b border-slate-100 items-center">
+                        <span class="text-slate-500">ID Unique (IDSSO)</span>
+                        <div class="flex items-center space-x-1">
+                            <span class="font-mono bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded" id="idsso-text">SO-98765-LART</span>
+                            <button onclick="copyToClipboard('idsso-text')" class="text-slate-400 hover:text-slate-600 p-0.5" title="Copier IDSSO">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Offre actuelle -->
+                    <div class="flex justify-between py-1.5 border-b border-slate-100">
+                        <span class="text-slate-500">Abonnement</span>
+                        <span class="font-semibold text-gso-soBlue">Numérique + Papier Week-end (SO Bordeaux)</span>
+                    </div>
+
+                    <!-- SIRET (if applicable) -->
+                    <div class="flex justify-between py-1.5 border-b border-slate-100">
+                        <span class="text-slate-500">SIRET (Pro)</span>
+                        <span class="font-mono text-slate-400">- (Particulier)</span>
+                    </div>
+
+                    <!-- Emails -->
+                    <div class="flex justify-between py-1.5 border-b border-slate-100 items-center">
+                        <span class="text-slate-500">Adresse e-mail</span>
+                        <div class="flex items-center space-x-1">
+                            <span class="font-semibold text-slate-800" id="email-text">jp.lartigau33@gmail.com</span>
+                            <button onclick="copyToClipboard('email-text')" class="text-slate-400 hover:text-slate-600 p-0.5">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Phones -->
+                    <div class="flex justify-between py-1.5 border-b border-slate-100">
+                        <span class="text-slate-500">Téléphone Mobile</span>
+                        <span class="font-semibold text-slate-800">06 45 87 12 90</span>
+                    </div>
+                    
+                    <div class="flex justify-between py-1.5 border-b border-slate-100">
+                        <span class="text-slate-500">Téléphone Fixe</span>
+                        <span class="text-slate-400">Non renseigné</span>
+                    </div>
+
+                    <!-- Main Address -->
+                    <div class="py-1.5 border-b border-slate-100">
+                        <p class="text-slate-500 mb-1">Adresse de l'abonné</p>
+                        <p class="font-semibold text-slate-800 bg-slate-50 p-2 rounded border border-slate-100">
+                            12 Avenue de la Libération<br>33100 Bordeaux
+                        </p>
+                    </div>
+
+                    <!-- Billing Address -->
+                    <div class="py-1.5">
+                        <div class="flex justify-between items-center mb-1">
+                            <p class="text-slate-500">Adresse de facturation</p>
+                            <span class="text-[10px] bg-slate-100 text-slate-500 px-1 py-0.2 rounded font-medium">Identique</span>
+                        </div>
+                        <p class="text-slate-600 bg-slate-50 p-2 rounded border border-slate-100">
+                            12 Avenue de la Libération<br>33100 Bordeaux
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Widget 2: Logistique & Livraison détaillée (Crucial pour le support Presse) -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+                    <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-truck-ramp-box text-slate-400"></i>
+                        Logistique de Portage / Poste
+                    </h2>
+                    <span class="text-[10px] uppercase font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded">
+                        Info Shipo J-1
+                    </span>
+                </div>
+                
+                <div class="p-4 space-y-4 text-xs">
+                    <!-- Delivery Mode -->
+                    <div class="flex justify-between items-center py-1.5 border-b border-slate-100">
+                        <span class="text-slate-500">Mode de distribution</span>
+                        <span class="inline-flex items-center font-bold text-sky-800 bg-sky-50 border border-sky-100 px-2 py-1 rounded">
+                            <i class="fa-solid fa-bicycle mr-1.5 text-sky-600"></i> PORTAGE (Aquitaine Portage)
+                        </span>
+                    </div>
+
+                    <!-- Current Delivery Issue (Dynamic Alert block) -->
+                    <div id="logistics-issue-card" class="p-3 bg-slate-100 text-slate-600 rounded-md border border-slate-200 transition-all-custom flex items-start gap-2">
+                        <i class="fa-solid fa-circle-check text-emerald-500 text-sm mt-0.5" id="logistics-icon"></i>
+                        <div>
+                            <p class="font-bold" id="logistics-title">Pas d'incident signalé</p>
+                            <p class="text-[11px]" id="logistics-subtitle">L'édition du jour a été notifiée comme livrée.</p>
+                        </div>
+                    </div>
+
+                    <!-- Depot Info -->
+                    <div class="flex justify-between py-1.5 border-b border-slate-100">
+                        <span class="text-slate-500">Dépôt de distribution</span>
+                        <span class="font-semibold text-slate-800">Depot 33-Bordeaux Rive Gauche</span>
+                    </div>
+
+                    <!-- Carrier at D-day -->
+                    <div class="flex justify-between py-1.5 border-b border-slate-100">
+                        <span class="text-slate-500">Porteur Jour J (D-Day)</span>
+                        <div class="text-right">
+                            <p class="font-semibold text-slate-800">Michel Garcia</p>
+                            <p class="text-[10px] text-slate-400">Tournée #33-TG-04</p>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Address (If different) -->
+                    <div class="py-1.5">
+                        <p class="text-slate-500 mb-1">Adresse exacte de distribution</p>
+                        <p class="font-mono text-slate-800 bg-slate-50 p-2 rounded border border-slate-100">
+                            12 Avenue de la Libération, 33100 Bordeaux<br>
+                            <span class="text-slate-400 text-[11px]">Consignes : Déposer dans la boîte à lettres à l'entrée du portail noir.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- CENTER COLUMN: Sollicitations, Logs and Marketing Timelines (5/12 width) -->
+        <section class="lg:col-span-5 space-y-6">
+            
+            <!-- Main Interaction & Logs Card -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-[600px]">
+                
+                <!-- Central Interactive Tabs Menu -->
+                <div class="bg-slate-50 border-b border-slate-200 px-4 pt-3 flex flex-wrap gap-1">
+                    <button onclick="switchTab('tab-sollicitations')" id="btn-tab-sollicitations" class="px-4 py-2 text-xs font-bold border-b-2 border-slate-800 text-slate-800 transition-all-custom focus:outline-none">
+                        <i class="fa-solid fa-comments mr-1.5 text-slate-500"></i> Support & Échanges
+                    </button>
+                    <button onclick="switchTab('tab-marketing')" id="btn-tab-marketing" class="px-4 py-2 text-xs font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all-custom focus:outline-none">
+                        <i class="fa-solid fa-bullhorn mr-1.5 text-slate-400"></i> Marketing & SMS
+                    </button>
+                    <button onclick="switchTab('tab-system-logs')" id="btn-tab-system-logs" class="px-4 py-2 text-xs font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all-custom focus:outline-none">
+                        <i class="fa-solid fa-gears mr-1.5 text-slate-400"></i> Bishop/Shipo Logs
+                    </button>
+                </div>
+
+                <!-- TAB 1 CONTENT: SOLICITATIONS & EXCHANGES -->
+                <div id="tab-sollicitations" class="p-4 flex-1 space-y-4">
+                    <!-- Global Sollicitations Stats -->
+                    <div class="grid grid-cols-3 gap-3 bg-slate-50 p-3 rounded-lg border border-slate-100 text-center">
+                        <div>
+                            <p class="text-[10px] text-slate-400 uppercase font-bold">Total Appels</p>
+                            <p class="text-lg font-bold text-[#ff7a59]">14</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 uppercase font-bold">Emails / Tickets</p>
+                            <p class="text-lg font-bold text-slate-700">4</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 uppercase font-bold">Dernière Sollicitation</p>
+                            <p class="text-xs font-semibold text-slate-800 mt-1">Hier (Téléphone)</p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline flow -->
+                    <div class="relative pl-6 border-l border-slate-200 space-y-6">
+                        
+                        <!-- Timeline Item 1 -->
+                        <div class="relative">
+                            <!-- Icon node -->
+                            <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-amber-500 border-2 border-white flex items-center justify-center text-white" title="Appel Téléphonique">
+                                <i class="fa-solid fa-phone text-[8px]"></i>
+                            </span>
+                            <div class="bg-white p-3 rounded-md border border-slate-200 shadow-xs">
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="text-xs font-bold text-slate-800">Appel Entrant Support - Problème de distribution</span>
+                                    <span class="text-[10px] text-slate-400">Hier à 10:14</span>
+                                </div>
+                                <p class="text-xs text-slate-600">
+                                    L'abonné indique n'avoir pas reçu le journal papier d'hier. L'agent a validé que le porteur a eu un retard sur cette tournée.
+                                </p>
+                                <div class="mt-2 flex items-center justify-between text-[11px] text-slate-500 bg-slate-50 px-2 py-1 rounded">
+                                    <span>Traité par : <strong>Sandrine B.</strong></span>
+                                    <span class="font-medium text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded">Statut : Clos</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 2 -->
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-slate-600 border-2 border-white flex items-center justify-center text-white" title="Email / Ticket">
+                                <i class="fa-solid fa-envelope text-[8px]"></i>
+                            </span>
+                            <div class="bg-white p-3 rounded-md border border-slate-200 shadow-xs">
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="text-xs font-bold text-slate-800">Email : Ticket de réclamation - Expiration CB</span>
+                                    <span class="text-[10px] text-slate-400">12 Mai 2026 à 14:30</span>
+                                </div>
+                                <p class="text-xs text-slate-600">
+                                    Demande d'aide pour mettre à jour la carte bancaire suite à la réception d'un e-mail d'alerte. Lien de mise à jour sécurisé envoyé par l'agent.
+                                </p>
+                                <div class="mt-2 flex items-center justify-between text-[11px] text-slate-500 bg-slate-50 px-2 py-1 rounded">
+                                    <span>Ticket : <strong>#HT-98711</strong></span>
+                                    <span class="font-medium text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded">Résolu</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 3 -->
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-slate-600 border-2 border-white flex items-center justify-center text-white">
+                                <i class="fa-solid fa-envelope text-[8px]"></i>
+                            </span>
+                            <div class="bg-white p-3 rounded-md border border-slate-200 shadow-xs">
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="text-xs font-bold text-slate-800">Email : Modification d'adresse temporaire</span>
+                                    <span class="text-[10px] text-slate-400">01 Janv 2026</span>
+                                </div>
+                                <p class="text-xs text-slate-600">
+                                    Demande de redirection temporaire vers l'adresse secondaire de vacances à Capbreton pour la période du 1er au 15 Janvier. Validé logistiquement.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- TAB 2 CONTENT: MARKETING ACTIONS & SMS SENT -->
+                <div id="tab-marketing" class="p-4 flex-1 space-y-4 hidden">
+                    <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Newsletters actives & Campagnes récentes</h3>
+                    
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="bg-slate-50 p-2.5 rounded border border-slate-100">
+                            <p class="text-[11px] font-bold text-gso-soBlue"><i class="fa-solid fa-paper-plane mr-1 text-[10px]"></i> Sud Ouest Direct</p>
+                            <p class="text-[10px] text-slate-500 mt-0.5">Fréquence : Quotidienne (Actif)</p>
+                        </div>
+                        <div class="bg-slate-50 p-2.5 rounded border border-slate-100">
+                            <p class="text-[11px] font-bold text-gso-soBlue"><i class="fa-solid fa-paper-plane mr-1 text-[10px]"></i> Info Bordeaux Métropole</p>
+                            <p class="text-[10px] text-slate-500 mt-0.5">Fréquence : Hebdomadaire (Actif)</p>
+                        </div>
+                    </div>
+
+                    <!-- Marketing Events Timeline -->
+                    <div class="relative pl-6 border-l border-slate-200 space-y-6 pt-2">
+                        <!-- SMS 1 -->
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-blue-600 border-2 border-white flex items-center justify-center text-white" title="SMS">
+                                <i class="fa-solid fa-comment-sms text-[8px]"></i>
+                            </span>
+                            <div class="bg-white p-3 rounded-md border border-slate-200 shadow-xs">
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="text-xs font-bold text-slate-800">SMS Automatique : Alerte non-portage</span>
+                                    <span class="text-[10px] text-slate-400">Hier à 06:15</span>
+                                </div>
+                                <p class="text-xs text-slate-600 italic">
+                                    "Cher lecteur, nous rencontrons un retard exceptionnel sur la livraison de votre Sud Ouest ce matin. Veuillez nous excuser."
+                                </p>
+                                <span class="text-[10px] font-medium text-emerald-600 bg-emerald-50 px-1 rounded mt-1.5 inline-block"><i class="fa-solid fa-check"></i> Délivré (Orange Réseau)</span>
+                            </div>
+                        </div>
+
+                        <!-- Marketing Email Open -->
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-indigo-500 border-2 border-white flex items-center justify-center text-white">
+                                <i class="fa-solid fa-envelope-open text-[8px]"></i>
+                            </span>
+                            <div class="bg-white p-3 rounded-md border border-slate-200 shadow-xs">
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="text-xs font-bold text-slate-800">Email : Newsletter Sud Ouest Direct</span>
+                                    <span class="text-[10px] text-slate-400">Ce matin à 08:30</span>
+                                </div>
+                                <p class="text-xs text-slate-600">
+                                    Reçu, ouvert et 2 clics enregistrés sur les actualités locales.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- SMS 2 -->
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-blue-600 border-2 border-white flex items-center justify-center text-white">
+                                <i class="fa-solid fa-comment-sms text-[8px]"></i>
+                            </span>
+                            <div class="bg-white p-3 rounded-md border border-slate-200 shadow-xs">
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="text-xs font-bold text-slate-800">SMS Automatique : Alerte Expiration CB</span>
+                                    <span class="text-[10px] text-slate-400">10 Mai 2026 à 10:00</span>
+                                </div>
+                                <p class="text-xs text-slate-600 italic">
+                                    "Attention, votre abonnement numérique Sud Ouest risque de s'interrompre : votre CB arrive à échéance à la fin du mois. Mettez-la à jour."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3 CONTENT: SYSTEM LOGS (BISHOP / SHIPO REALTIME EVENTS) -->
+                <div id="tab-system-logs" class="p-4 flex-1 space-y-4 hidden">
+                    <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Événements Systèmes & Actions Site</h3>
+                    
+                    <div class="space-y-3">
+                        <!-- Shipo log -->
+                        <div class="flex items-start gap-2 p-2.5 bg-slate-50 rounded border border-slate-200 text-xs">
+                            <span class="p-1.5 bg-sky-100 text-sky-800 font-bold rounded text-[9px] uppercase">Shipo</span>
+                            <div>
+                                <div class="flex justify-between w-full">
+                                    <span class="font-bold text-slate-800">Suspension temporaire programmée</span>
+                                    <span class="text-[10px] text-slate-400">01 Mai 2026</span>
+                                </div>
+                                <p class="text-slate-600 mt-0.5">Demande de suspension pour vacances validée automatiquement par le système de routage.</p>
+                            </div>
+                        </div>
+
+                        <!-- Bishop log -->
+                        <div class="flex items-start gap-2 p-2.5 bg-slate-50 rounded border border-slate-200 text-xs">
+                            <span class="p-1.5 bg-purple-100 text-purple-800 font-bold rounded text-[9px] uppercase">Bishop</span>
+                            <div>
+                                <div class="flex justify-between w-full">
+                                    <span class="font-bold text-slate-800">Renouvellement automatique mensuel</span>
+                                    <span class="text-[10px] text-slate-400">12 Mai 2026</span>
+                                </div>
+                                <p class="text-slate-600 mt-0.5">Montant débité : 24,90€. Token bancaire valide et mis à jour.</p>
+                            </div>
+                        </div>
+
+                        <!-- Web action log -->
+                        <div class="flex items-start gap-2 p-2.5 bg-slate-50 rounded border border-slate-200 text-xs">
+                            <span class="p-1.5 bg-gso-soBlue text-white font-bold rounded text-[9px] uppercase">Site Web</span>
+                            <div>
+                                <div class="flex justify-between w-full">
+                                    <span class="font-bold text-slate-800">Dernière Connexion Abonné</span>
+                                    <span class="text-[10px] text-slate-400">Aujourd'hui à 07:12</span>
+                                </div>
+                                <p class="text-slate-600 mt-0.5">Connexion sur l'application iOS (v10.4.2) - IP: 82.124.90.11 - Lecteur connecté depuis Bordeaux.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- RIGHT COLUMN: Financials, Actions & KPI statistics (3/12 width) -->
+        <section class="lg:col-span-3 space-y-6">
+            
+            <!-- Widget 1: Paiements & Comptabilité -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-4 bg-slate-50 border-b border-slate-200">
+                    <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-credit-card text-slate-400"></i>
+                        Paiements & Comptabilité
+                    </h2>
+                </div>
+                
+                <div class="p-4 space-y-4 text-xs">
+                    <!-- Account Balance (Highly Visual) -->
+                    <div class="p-3 bg-rose-50 border border-rose-100 rounded-md text-center" id="balance-container">
+                        <p class="text-[11px] text-rose-700 font-bold uppercase tracking-wider">Solde Comptable</p>
+                        <p class="text-2xl font-bold text-rose-600 mt-1" id="balance-amount">-12,50 €</p>
+                        <p class="text-[10px] text-rose-500 mt-1" id="balance-status">Impayé en cours (Facture F-2026-05-12)</p>
+                    </div>
+
+                    <!-- Payment Mode -->
+                    <div class="flex justify-between py-1.5 border-b border-slate-100">
+                        <span class="text-slate-500">Moyen de paiement</span>
+                        <span class="font-semibold text-slate-800"><i class="fa-regular fa-credit-card mr-1 text-slate-400"></i> Carte Bancaire (Visa)</span>
+                    </div>
+
+                    <!-- CB Expiration Alert -->
+                    <div class="flex justify-between py-1.5 border-b border-slate-100 items-center">
+                        <span class="text-slate-500">Expiration CB</span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-rose-100 text-rose-800">
+                            07/2026 <i class="fa-solid fa-triangle-exclamation ml-1 text-rose-700"></i>
+                        </span>
+                    </div>
+
+                    <!-- Invoices mini list -->
+                    <div class="pt-2">
+                        <p class="text-slate-500 mb-2 font-semibold">Dernières Factures (Bishop)</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 bg-slate-50 border border-slate-100 rounded">
+                                <div>
+                                    <p class="font-bold text-slate-700">F-2026-05-12</p>
+                                    <p class="text-[10px] text-slate-400">12 Mai 2026</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-rose-600">12,50 €</p>
+                                    <span class="text-[9px] text-rose-700 bg-rose-50 px-1 py-0.2 rounded font-medium">Rejet bancaire</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center p-2 bg-slate-50 border border-slate-100 rounded">
+                                <div>
+                                    <p class="font-bold text-slate-700">F-2026-04-12</p>
+                                    <p class="text-[10px] text-slate-400">12 Avril 2026</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-slate-800">24,90 €</p>
+                                    <span class="text-[9px] text-emerald-700 bg-emerald-50 px-1 py-0.2 rounded font-medium">Payé</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Widget 2: Dates Clés & Réconciliation -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-4 bg-slate-50 border-b border-slate-200">
+                    <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-calendar text-slate-400"></i>
+                        Contrat & Réconciliation
+                    </h2>
+                </div>
+                
+                <div class="p-4 space-y-3.5 text-xs">
+                    <!-- Seniority / Creation -->
+                    <div class="flex justify-between py-1 border-b border-slate-100">
+                        <span class="text-slate-500">Ancienneté client</span>
+                        <span class="font-semibold text-slate-800">Depuis le 14 Juin 2020 (6 ans)</span>
+                    </div>
+
+                    <!-- Contract Renewal Date -->
+                    <div class="flex justify-between py-1 border-b border-slate-100">
+                        <span class="text-slate-500">Échéance contrat</span>
+                        <span class="font-semibold text-slate-800">12 Juin 2026 (Renouv. auto)</span>
+                    </div>
+
+                    <!-- Acquisition Channel & Seller -->
+                    <div class="flex justify-between py-1 border-b border-slate-100">
+                        <span class="text-slate-500">Canal d'acquisition</span>
+                        <span class="font-semibold text-slate-800">Site Web (Offre promo)</span>
+                    </div>
+
+                    <!-- Reconciliation status (Crucial BQ status) -->
+                    <div class="flex justify-between py-1 border-b border-slate-100 items-center">
+                        <span class="text-slate-500">Réconciliation Papier/Web</span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                            <i class="fa-solid fa-circle-nodes mr-1 text-emerald-600"></i> Réconcilié (ID unique)
+                        </span>
+                    </div>
+
+                    <!-- Admin / Chorus command number if pro -->
+                    <div class="flex justify-between py-1">
+                        <span class="text-slate-500">Réf. engagement (Chorus)</span>
+                        <span class="font-mono text-slate-400">Non renseigné</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactivity notification area -->
+            <div class="hidden" id="notification-toast">
+                <div class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-lg shadow-lg flex items-center space-x-3 text-xs animate-bounce z-50">
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                    <span id="notification-message">L'IDSSO a été copié avec succès !</span>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER WITH ADVICE & CONTEXT -->
+    <footer class="bg-white border-t border-slate-200 py-3 px-6 text-xs text-slate-400 flex flex-col sm:flex-row justify-between items-center shrink-0">
+        <div>
+            Conçu pour le Service Client du Groupe Sud Ouest - Intégration BigQuery, Shipo & Bishop.
+        </div>
+        <div class="font-semibold text-[#004b6e] mt-1 sm:mt-0">
+            Équipes DATA & APPS - Maxime Lasserre (PO)
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC FOR HUBSPOT INTERACTIVE ACTIONS -->
+    <script>
+        // Tab switching controller
+        function switchTab(tabId) {
+            // Hide all tab content
+            document.getElementById('tab-sollicitations').classList.add('hidden');
+            document.getElementById('tab-marketing').classList.add('hidden');
+            document.getElementById('tab-system-logs').classList.add('hidden');
+
+            // Reset tab button stylings
+            const tabButtons = [
+                { btn: 'btn-tab-sollicitations', target: 'tab-sollicitations' },
+                { btn: 'btn-tab-marketing', target: 'tab-marketing' },
+                { btn: 'btn-tab-system-logs', target: 'tab-system-logs' }
+            ];
+
+            tabButtons.forEach(item => {
+                const btnElement = document.getElementById(item.btn);
+                if (item.target === tabId) {
+                    btnElement.classList.add('border-slate-800', 'text-slate-800', 'font-bold');
+                    btnElement.classList.remove('border-transparent', 'text-slate-500', 'font-medium');
+                } else {
+                    btnElement.classList.remove('border-slate-800', 'text-slate-800', 'font-bold');
+                    btnElement.classList.add('border-transparent', 'text-slate-500', 'font-medium');
+                }
+            });
+
+            // Show selected tab content
+            document.getElementById(tabId).classList.remove('hidden');
+        }
+
+        // Toggle logistic incident simulator
+        let alertActive = false;
+        function toggleDeliveryAlert() {
+            if (!alertActive) {
+                // Activate incident
+                alertActive = true;
+                
+                // Show banners & indicators
+                document.getElementById('logistics-alert-banner').classList.remove('hidden');
+                
+                // Modify "Incident logistique" state inside Left Sidebar Shipo card
+                const issueCard = document.getElementById('logistics-issue-card');
+                const logisticsIcon = document.getElementById('logistics-icon');
+                const logisticsTitle = document.getElementById('logistics-title');
+                const logisticsSubtitle = document.getElementById('logistics-subtitle');
+                const simulationBtn = document.getElementById('trigger-delivery-btn');
+
+                issueCard.className = "p-3 bg-rose-50 text-rose-800 rounded-md border border-rose-200 transition-all-custom flex items-start gap-2";
+                logisticsIcon.className = "fa-solid fa-triangle-exclamation text-rose-600 text-sm mt-0.5 animate-pulse";
+                logisticsTitle.textContent = "Signalement de non-distribution";
+                logisticsSubtitle.textContent = "Alerte de livraison enregistrée par le porteur aujourd'hui.";
+                
+                simulationBtn.textContent = "Résoudre l'Incident Logistique";
+                simulationBtn.className = "inline-flex items-center px-3 py-2 border border-emerald-300 hover:bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-md transition-all-custom";
+                
+                showToast("Alerte Logistique activée. L'interface s'est mise à jour !");
+            } else {
+                resolveDeliveryAlert();
+            }
+        }
+
+        function resolveDeliveryAlert() {
+            alertActive = false;
+            // Hide banners
+            document.getElementById('logistics-alert-banner').classList.add('hidden');
+
+            // Reset Right Sidebar logistics info
+            const issueCard = document.getElementById('logistics-issue-card');
+            const logisticsIcon = document.getElementById('logistics-icon');
+            const logisticsTitle = document.getElementById('logistics-title');
+            const logisticsSubtitle = document.getElementById('logistics-subtitle');
+            const simulationBtn = document.getElementById('trigger-delivery-btn');
+
+            issueCard.className = "p-3 bg-slate-100 text-slate-600 rounded-md border border-slate-200 transition-all-custom flex items-start gap-2";
+            logisticsIcon.className = "fa-solid fa-circle-check text-emerald-500 text-sm mt-0.5";
+            logisticsTitle.textContent = "Pas d'incident signalé";
+            logisticsSubtitle.textContent = "L'édition du jour a été notifiée comme livrée.";
+
+            simulationBtn.textContent = "Simuler Incident Logistique";
+            simulationBtn.className = "inline-flex items-center px-3 py-2 border border-rose-300 hover:bg-rose-50 text-rose-700 text-xs font-semibold rounded-md transition-all-custom";
+            
+            showToast("Alerte résolue. L'abonnement est repassé au vert.");
+        }
+
+        // Copy dynamic properties utility with feedback
+        function copyToClipboard(elementId) {
+            const textToCopy = document.getElementById(elementId).textContent;
+            
+            // Fallback selection copy strategy due to iframe restrictions
+            const dummyInput = document.createElement("input");
+            document.body.appendChild(dummyInput);
+            dummyInput.setAttribute("value", textToCopy);
+            dummyInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummyInput);
+
+            showToast(`"${textToCopy}" a été copié dans votre presse-papiers.`);
+        }
+
+        // Show HubSpot style Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('notification-toast');
+            const toastMessage = document.getElementById('notification-message');
+            
+            toastMessage.textContent = message;
+            toast.classList.remove('hidden');
+
+            // Automatically hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
