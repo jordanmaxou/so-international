@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport Hebdomadaire Performance & Scoring - Sud Ouest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gsoBlue: '#0F2C59',
+                        gsoGold: '#DAC0A3',
+                        gsoLightBg: '#F8F9FA',
+                        gsoBorder: '#E5E7EB',
+                        gsoDark: '#1E293B',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F1F5F9;
+        }
+        @media print {
+            body {
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-shadow-none {
+                box-shadow: none !important;
+                border: 1px solid #E2E8F0 !important;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen py-6 px-4 sm:px-6 lg:px-8">
+
+    <!-- BARRE D'ACTION ACTIONNABLE (Masquée à l'impression PDF) -->
+    <div class="no-print max-w-5xl mx-auto mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+        <div class="flex items-center space-x-3">
+            <div class="bg-gsoBlue p-2 rounded-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-sm font-bold text-slate-900">Maquette Statique Finalisée</h1>
+                <p class="text-xs text-slate-500">Prête pour l'exportation ou l'impression directe en PDF.</p>
+            </div>
+        </div>
+        <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg text-xs font-bold flex items-center space-x-2 transition shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+            </svg>
+            <span>Générer le PDF</span>
+        </button>
+    </div>
+
+    <!-- CORPS DU RAPPORT (Format A4 Édition Statique) -->
+    <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-md border border-slate-200/80 p-8 sm:p-12 print-shadow-none">
+        
+        <!-- EN-TÊTE DU RAPPORT -->
+        <div class="border-b-2 border-slate-900 pb-6 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+            <div>
+                <div class="flex items-center space-x-2.5">
+                    <span class="bg-gsoBlue text-white text-[10px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider">Sud Ouest</span>
+                    <span class="text-slate-400 font-semibold text-xs">PIANO ANALYTICS & SCORING COHORTS</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Cockpit d'Engagement Hebdomadaire</h2>
+                <p class="text-slate-500 text-sm mt-1">Analyse des scorings utilisateurs (`v_score`) et dynamique des flux d'abonnements</p>
+            </div>
+            <div class="text-left sm:text-right bg-slate-50 p-4 rounded-xl border border-slate-200/60 font-medium">
+                <p class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Période d'analyse</p>
+                <p class="text-sm font-bold text-slate-800">Semaine 22 (25 Mai — 31 Mai 2026)</p>
+                <p class="text-xs text-indigo-600 mt-0.5">Vs Semaine Précédente (W-1)</p>
+            </div>
+        </div>
+
+        <!-- SECTION 1 : SANTÉ GÉNÉRALE & TENDANCE DES NOTES -->
+        <div class="mb-10">
+            <div class="flex items-center space-x-2.5 mb-4">
+                <div class="w-2.5 h-6 bg-gsoBlue rounded-full"></div>
+                <h3 class="text-lg font-extrabold text-slate-900">1. Santé Globale de l'Audience Active & Tendance des Notes</h3>
+            </div>
+            
+            <p class="text-xs text-slate-500 mb-6 leading-relaxed">
+                Répartition et évolution du volume de visiteurs actifs uniques ayant obtenu une note de scoring global maison (`v_score` calculé sur un historique de 30 jours glissants). 
+            </p>
+
+            <!-- KPIs Flash -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Bassin Engagé (Scores A & B)</span>
+                        <div class="text-2xl font-extrabold text-slate-900 mt-1">191 050 <span class="text-xs font-normal text-slate-500">visiteurs</span></div>
+                    </div>
+                    <span class="text-xs font-bold bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full flex items-center">
+                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        +4,2% vs W-1
+                    </span>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex justify-between items-center">
+                    <div>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Volume Sous-Engagé (Scores E & F)</span>
+                        <div class="text-2xl font-extrabold text-slate-900 mt-1">480 700 <span class="text-xs font-normal text-slate-500">visiteurs</span></div>
+                    </div>
+                    <span class="text-xs font-bold bg-rose-50 text-rose-700 px-2.5 py-1 rounded-full flex items-center">
+                        <svg class="w-3 h-3 mr-1 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        -3,6% vs W-1
+                    </span>
+                </div>
+            </div>
+
+            <!-- Graphique & Tableau d'appui -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <!-- Histogramme Horizontal -->
+                <div class="lg:col-span-7 bg-slate-50 p-5 rounded-xl border border-slate-200/60 space-y-3.5">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Graphique de Tendance (W-0 en Bleu vs W-1 en Gris)</span>
+                    
+                    <!-- A -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold text-slate-700"><span>Note A (&ge; 0.60)</span> <span class="font-mono">42 850 (+2,1%)</span></div>
+                        <div class="h-2 bg-gsoBlue rounded" style="width: 45%"></div>
+                        <div class="h-1 bg-slate-300 rounded" style="width: 44%"></div>
+                    </div>
+                    <!-- B -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold text-slate-700"><span>Note B (0.36 &le; v &lt; 0.60)</span> <span class="font-mono">148 200 (+4,8%)</span></div>
+                        <div class="h-2 bg-gsoBlue rounded" style="width: 85%"></div>
+                        <div class="h-1 bg-slate-300 rounded" style="width: 81%"></div>
+                    </div>
+                    <!-- C -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold text-slate-700"><span>Note C (0.26 &le; v &lt; 0.36)</span> <span class="font-mono">221 400 (-1,2%)</span></div>
+                        <div class="h-2 bg-gsoBlue rounded" style="width: 95%"></div>
+                        <div class="h-1 bg-slate-300 rounded" style="width: 96%"></div>
+                    </div>
+                    <!-- D -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold text-slate-700"><span>Note D (0.21 &le; v &lt; 0.26)</span> <span class="font-mono">165 900 (-3,5%)</span></div>
+                        <div class="h-2 bg-gsoBlue rounded" style="width: 70%"></div>
+                        <div class="h-1 bg-slate-300 rounded" style="width: 73%"></div>
+                    </div>
+                    <!-- E -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold text-slate-700"><span>Note E (0.15 &le; v &lt; 0.21)</span> <span class="font-mono">182 100 (-0,9%)</span></div>
+                        <div class="h-2 bg-gsoBlue rounded" style="width: 75%"></div>
+                        <div class="h-1 bg-slate-300 rounded" style="width: 76%"></div>
+                    </div>
+                    <!-- F -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold text-slate-700"><span>Note F (&lt; 0.15)</span> <span class="font-mono">298 600 (-5,2%)</span></div>
+                        <div class="h-2 bg-gsoBlue rounded" style="width: 100%"></div>
+                        <div class="h-1 bg-slate-300 rounded" style="width: 105%"></div>
+                    </div>
+                </div>
+
+                <!-- Tableau détaillé -->
+                <div class="lg:col-span-5 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                    <table class="w-full text-left text-[11px] border-collapse">
+                        <thead>
+                            <tr class="bg-slate-900 text-white font-bold">
+                                <th class="p-2.5">Note</th>
+                                <th class="p-2.5 text-right">Semaine W-0</th>
+                                <th class="p-2.5 text-right">Semaine W-1</th>
+                                <th class="p-2.5 text-right">Évolution</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                            <tr><td class="p-2.5 font-bold text-slate-900 bg-slate-50/50">A</td><td class="p-2.5 text-right">42 850</td><td class="p-2.5 text-right text-slate-400">41 970</td><td class="p-2.5 text-right text-emerald-600 font-bold">+2,1%</td></tr>
+                            <tr><td class="p-2.5 font-bold text-slate-900 bg-slate-50/50">B</td><td class="p-2.5 text-right">148 200</td><td class="p-2.5 text-right text-slate-400">141 410</td><td class="p-2.5 text-right text-emerald-600 font-bold">+4,8%</td></tr>
+                            <tr><td class="p-2.5 font-bold text-slate-900">C</td><td class="p-2.5 text-right">221 400</td><td class="p-2.5 text-right text-slate-400">224 090</td><td class="p-2.5 text-right text-rose-500">-1,2%</td></tr>
+                            <tr><td class="p-2.5 font-bold text-slate-900">D</td><td class="p-2.5 text-right">165 900</td><td class="p-2.5 text-right text-slate-400">171 920</td><td class="p-2.5 text-right text-rose-500">-3,5%</td></tr>
+                            <tr><td class="p-2.5 font-bold text-slate-900">E</td><td class="p-2.5 text-right">182 100</td><td class="p-2.5 text-right text-slate-400">183 750</td><td class="p-2.5 text-right text-rose-500">-0,9%</td></tr>
+                            <tr><td class="p-2.5 font-bold text-slate-900 bg-rose-50/10">F</td><td class="p-2.5 text-right">298 600</td><td class="p-2.5 text-right text-slate-400">315 010</td><td class="p-2.5 text-right text-rose-500 font-bold">-5,2%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2 : FLUX DE CONVERSION (INSCRIT/ANONYME ==> ABONNÉ) -->
+        <div class="mb-10 page-break pt-4">
+            <div class="flex items-center space-x-2.5 mb-4">
+                <div class="w-2.5 h-6 bg-emerald-600 rounded-full"></div>
+                <h3 class="text-lg font-extrabold text-slate-900">2. Flux de Conversion : Passage à l'Abonnement Actif</h3>
+            </div>
+            <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+                Analyse des utilisateurs (Inscrits ou Anonymes) ayant souscrit un abonnement numérique ou papier au cours de la semaine écoulée, classés selon leur note `v_score` calculée juste avant l'acte d'achat.
+            </p>
+
+            <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-white">
+                <div class="bg-gradient-to-r from-emerald-800 to-emerald-950 text-white px-4 py-3 flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase tracking-wider">Matrice de transformation par cohorte de score</span>
+                    <span class="text-xs font-mono bg-white/10 px-2.5 py-0.5 rounded font-bold">Total Semaine : 1 923 ventes (+11,7%)</span>
+                </div>
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 text-slate-500 border-b border-slate-200 font-bold text-[11px]">
+                            <th class="p-3">Détail de la cohorte d'engagement</th>
+                            <th class="p-3 text-center">Score</th>
+                            <th class="p-3 text-right">Ventes W-0</th>
+                            <th class="p-3 text-right">Ventes W-1</th>
+                            <th class="p-3 text-right">Écart Absolu</th>
+                            <th class="p-3 text-right bg-emerald-50 text-emerald-900">% des Ventes (W-0)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                        <tr>
+                            <td class="p-3">Score Exceptionnel (&ge; 0.60)</td>
+                            <td class="p-3 text-center font-extrabold text-emerald-700 bg-emerald-50/40">A</td>
+                            <td class="p-3 text-right font-bold">412</td>
+                            <td class="p-3 text-right text-slate-400">380</td>
+                            <td class="p-3 text-right text-emerald-600 font-bold">+32</td>
+                            <td class="p-3 text-right bg-emerald-50/20 font-extrabold">21,4%</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">Score Très Élevé (0.36 &le; v &lt; 0.60)</td>
+                            <td class="p-3 text-center font-extrabold text-emerald-700 bg-emerald-50/40">B</td>
+                            <td class="p-3 text-right font-bold">1 204</td>
+                            <td class="p-3 text-right text-slate-400">1 050</td>
+                            <td class="p-3 text-right text-emerald-600 font-bold">+154</td>
+                            <td class="p-3 text-right bg-emerald-50/20 font-extrabold">62,6%</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">Score Moyen (0.26 &le; v &lt; 0.36)</td>
+                            <td class="p-3 text-center font-extrabold text-slate-600">C</td>
+                            <td class="p-3 text-right">235</td>
+                            <td class="p-3 text-right text-slate-400">210</td>
+                            <td class="p-3 text-right text-emerald-600">+25</td>
+                            <td class="p-3 text-right bg-emerald-50/20">12,2%</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">Score Faible (0.21 &le; v &lt; 0.26)</td>
+                            <td class="p-3 text-center font-extrabold text-slate-600">D</td>
+                            <td class="p-3 text-right">45</td>
+                            <td class="p-3 text-right text-slate-400">50</td>
+                            <td class="p-3 text-right text-rose-500">-5</td>
+                            <td class="p-3 text-right bg-emerald-50/20">2,3%</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">Score Très Faible (0.15 &le; v &lt; 0.21)</td>
+                            <td class="p-3 text-center font-extrabold text-slate-600">E</td>
+                            <td class="p-3 text-right">22</td>
+                            <td class="p-3 text-right text-slate-400">26</td>
+                            <td class="p-3 text-right text-rose-500">-4</td>
+                            <td class="p-3 text-right bg-emerald-50/20">1,1%</td>
+                        </tr>
+                        <tr class="bg-slate-50/30">
+                            <td class="p-3">Score Résiduel / Inactif (&lt; 0.15)</td>
+                            <td class="p-3 text-center font-extrabold text-slate-600">F</td>
+                            <td class="p-3 text-right">6</td>
+                            <td class="p-3 text-right text-slate-400">4</td>
+                            <td class="p-3 text-right text-emerald-600">+2</td>
+                            <td class="p-3 text-right bg-emerald-50/20">0,3%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 3 : FLUX DE CHURN (ABONNÉ ==> INACTIF / INSCRIT) -->
+        <div class="mb-10">
+            <div class="flex items-center space-x-2.5 mb-4">
+                <div class="w-2.5 h-6 bg-rose-600 rounded-full"></div>
+                <h3 class="text-lg font-extrabold text-slate-900">3. Flux de Résiliation (Churn) : Passage au Statut Inactif</h3>
+            </div>
+            <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+                Suivi des abonnés dont les contrats ont expiré ou ont été résiliés cette semaine (statut d'abonnement basculé en `INACTIF`), croisé avec leur dernier niveau d'engagement mesuré au cours des jours précédents.
+            </p>
+
+            <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-white">
+                <div class="bg-gradient-to-r from-rose-800 to-rose-950 text-white px-4 py-3 flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase tracking-wider">Pertes d'abonnés par cohorte de score</span>
+                    <span class="text-xs font-mono bg-white/10 px-2.5 py-0.5 rounded font-bold">Total Semaine : 895 pertes (-3,3%)</span>
+                </div>
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 text-slate-500 border-b border-slate-200 font-bold text-[11px]">
+                            <th class="p-3">Détail de la cohorte avant désabonnement</th>
+                            <th class="p-3 text-center">Score</th>
+                            <th class="p-3 text-right">Pertes W-0</th>
+                            <th class="p-3 text-right">Pertes W-1</th>
+                            <th class="p-3 text-right">Écart Absolu</th>
+                            <th class="p-3 text-right bg-rose-50 text-rose-900">% du Churn (W-0)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+                        <tr>
+                            <td class="p-3">Score Exceptionnel (&ge; 0.60)</td>
+                            <td class="p-3 text-center font-extrabold text-slate-600">A</td>
+                            <td class="p-3 text-right">2</td>
+                            <td class="p-3 text-right text-slate-400">4</td>
+                            <td class="p-3 text-right text-emerald-600 font-bold">-2</td>
+                            <td class="p-3 text-right bg-rose-50/20 text-slate-600">0,2%</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">Score Très Élevé (0.36 &le; v &lt; 0.60)</td>
+                            <td class="p-3 text-center font-extrabold text-slate-600">B</td>
+                            <td class="p-3 text-right">18</td>
+                            <td class="p-3 text-right text-slate-400">22</td>
+                            <td class="p-3 text-right text-emerald-600 font-bold">-4</td>
+                            <td class="p-3 text-right bg-rose-50/20 text-slate-600">2,0%</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">Score Moyen (0.26 &le; v &lt; 0.36)</td>
+                            <td class="p-3 text-center font-extrabold text-slate-600">C</td>
+                            <td class="p-3 text-right">45</td>
+                            <td class="p-3 text-right text-slate-400">40</td>
+                            <td class="p-3 text-right text-rose-500">+5</td>
+                            <td class="p-3 text-right bg-rose-50/20 text-slate-600">5,0%</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">Score Faible (0.21 &le; v &lt; 0.26)</td>
+                            <td class="p-3 text-center font-extrabold text-slate-600">D</td>
+                            <td class="p-3 text-right font-bold">112</td>
+                            <td class="p-3 text-right text-slate-400">105</td>
+                            <td class="p-3 text-right text-rose-500">+7</td>
+                            <td class="p-3 text-right bg-rose-50/20 font-bold">12,5%</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3">Score Très Faible (0.15 &le; v &lt; 0.21)</td>
+                            <td class="p-3 text-center font-extrabold text-rose-700 bg-rose-50/40">E</td>
+                            <td class="p-3 text-right font-bold">298</td>
+                            <td class="p-3 text-right text-slate-400">310</td>
+                            <td class="p-3 text-right text-emerald-600 font-bold">-12</td>
+                            <td class="p-3 text-right bg-rose-50/20 font-extrabold">33,3%</td>
+                        </tr>
+                        <tr class="bg-slate-50/30">
+                            <td class="p-3">Score Résiduel / Inactif (&lt; 0.15)</td>
+                            <td class="p-3 text-center font-extrabold text-rose-700 bg-rose-50/40">F</td>
+                            <td class="p-3 text-right font-bold">420</td>
+                            <td class="p-3 text-right text-slate-400">414</td>
+                            <td class="p-3 text-right text-rose-500 font-bold">+6</td>
+                            <td class="p-3 text-right bg-rose-50/20 font-extrabold">47,0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 4 : FOCUS PRODUCTION ARTICLES (A&B) -->
+        <div class="mb-10 page-break pt-4">
+            <div class="flex items-center space-x-2.5 mb-4">
+                <div class="w-2.5 h-6 bg-amber-500 rounded-full"></div>
+                <h3 class="text-lg font-extrabold text-slate-900">4. Performance Éditoriale : Articles d'Impact (Notés A & B)</h3>
+            </div>
+            <p class="text-xs text-slate-500 mb-5 leading-relaxed">
+                Suivi du volume d'articles éditoriaux publiés dans la semaine qui ont surperformé en termes d'engagement ou d'aide à la conversion numérique.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-amber-50/40 border border-amber-200/70 p-4 rounded-xl">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Articles d'Impact (A & B)</span>
+                    <div class="text-xl font-extrabold text-slate-900 mt-1">345 articles</div>
+                    <p class="text-[10px] text-emerald-700 font-medium mt-1">+12% vs semaine précédente</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Taux d'Efficacité Hebdo</span>
+                    <div class="text-xl font-extrabold text-slate-900 mt-1">34,5% <span class="text-xs font-normal text-slate-400">du pool</span></div>
+                    <p class="text-[10px] text-slate-500 mt-1">Part de la production totale notée A ou B</p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Temps Moyen de Lecture</span>
+                    <div class="text-xl font-extrabold text-slate-900 mt-1">3 min 12s</div>
+                    <p class="text-[10px] text-slate-500 mt-1">Moyenne enregistrée sur les articles A/B</p>
+                </div>
+            </div>
+
+            <!-- Top 3 articles -->
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-3">Top 3 des contenus à forte valeur d'engagement de la semaine</span>
+                <div class="space-y-2.5 text-xs">
+                    <div class="bg-white border border-slate-200 p-3 rounded-lg flex justify-between items-center">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-amber-100 text-amber-800 text-[9px] font-extrabold px-1.5 py-0.5 rounded">PREMIUM</span>
+                            <span class="font-semibold text-slate-800">Pourquoi l'UBB impressionne tant en ce début de saison de Top 14</span>
+                        </div>
+                        <span class="bg-emerald-50 text-emerald-700 font-extrabold px-2 py-0.5 rounded text-[10px]">Score A (0.78)</span>
+                    </div>
+                    <div class="bg-white border border-slate-200 p-3 rounded-lg flex justify-between items-center">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-slate-100 text-slate-600 text-[9px] font-extrabold px-1.5 py-0.5 rounded">GRATUIT</span>
+                            <span class="font-semibold text-slate-800">Grave accident sur la rocade bordelaise : 3 voies coupées à la mi-journée</span>
+                        </div>
+                        <span class="bg-emerald-50 text-emerald-700 font-extrabold px-2 py-0.5 rounded text-[10px]">Score A (0.84)</span>
+                    </div>
+                    <div class="bg-white border border-slate-200 p-3 rounded-lg flex justify-between items-center">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-amber-100 text-amber-800 text-[9px] font-extrabold px-1.5 py-0.5 rounded">PREMIUM</span>
+                            <span class="font-semibold text-slate-800">Futur du pont d'Aquitaine : les différents scénarios de flux à l'étude</span>
+                        </div>
+                        <span class="bg-emerald-50 text-emerald-700 font-extrabold px-2 py-0.5 rounded text-[10px]">Score B (0.52)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5 : INTERPRÉTATION & SYNTHÈSE MÉTIER -->
+        <div class="mt-8 bg-slate-900 text-white rounded-xl p-6 shadow-inner">
+            <div class="flex items-center space-x-2.5 mb-4">
+                <svg class="w-5 h-5 text-gsoGold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                </svg>
+                <h3 class="text-sm font-extrabold uppercase tracking-wider text-gsoGold">Synthèse Métier & Recommandations Opérationnelles</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-[11px] text-slate-300 leading-relaxed">
+                <div>
+                    <h4 class="font-bold text-white text-xs mb-1.5 border-b border-slate-800 pb-1 uppercase tracking-wider text-emerald-400">🎯 Analyse du levier de Conversion</h4>
+                    <p class="mb-2">
+                        La corrélation est absolue : les tranches <strong>A et B représentent 84% des souscriptions</strong> enregistrées cette semaine. La rentabilité de nos campagnes marketing dépend directement de notre capacité à maintenir un vivier d'inscrits dans ces notes élevées.
+                    </p>
+                    <p class="font-medium text-white">
+                        Action : Intensifier les fenêtres d'abonnement dynamiques sur le site web spécifiquement pour la cohorte d'inscrits notée B.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white text-xs mb-1.5 border-b border-slate-800 pb-1 uppercase tracking-wider text-rose-400">🚨 Diagnostic Risque & Churn</h4>
+                    <p class="mb-2">
+                        Les résiliations proviennent à <strong>80,3% d'abonnés notés E ou F</strong>. Le décrochage de lecture mesuré en BigQuery constitue un indicateur précoce ultra-fiable : un abonné qui descend sous la note D résilie généralement dans les 30 jours.
+                    </p>
+                    <p class="font-medium text-white">
+                        Action : Automatiser une newsletter de réengagement ciblée (type coulisses, newsletters locales ou suppléments thématiques) dès la bascule d'un actif vers la note E.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER FORMEL (Pied de page PDF) -->
+        <div class="mt-8 flex justify-between items-center text-[9px] text-slate-400 pt-3 border-t border-slate-200 font-medium">
+            <span>Rapport d'activité automatisé — GSO DataEngine 2026</span>
+            <span class="font-mono">JOB_ID : BQ-OUTPUT-SO-WEEK22</span>
+        </div>
+
+    </div>
+
+</body>
+</html>
