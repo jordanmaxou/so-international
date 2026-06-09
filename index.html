@@ -1,524 +1,119 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sud Ouest International - Maquette</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .italic-black { font-weight: 900; font-style: italic; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>sudouest.com — Home</title>
+<link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-white text-slate-900">
+<body>
+<div id="demo-bar"></div>
+<div id="nav"></div>
+<div id="pub-top"></div>
 
-    <div id="app">
-        <!-- Le contenu sera injecté ici par le script -->
+<div class="page-wrap">
+  <div class="home-hero">
+
+    <!-- Verticale Wine -->
+    <div class="vertical-block">
+      <div class="vertical-title">
+        <h2>Wine</h2>
+        <a href="verticale.html">All articles ›</a>
+      </div>
+      <div class="articles-grid">
+        <div class="article-card lead" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#b8a89a"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80" alt="Wine"></div>
+          <h3>Bordeaux 2025 vintage: winemakers optimistic despite spring frosts</h3>
+          <div class="meta">Wine · 2 hours ago</div>
+        </div>
+        <div class="article-card" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#c9b99a"><img src="https://images.unsplash.com/photo-1474722883778-792e7990302f?w=300&q=80" alt="Wine cellar"></div>
+          <h3>Saint-Émilion: new classification sparks controversy among producers</h3>
+          <div class="meta">Wine · 5 hours ago</div>
+        </div>
+        <div class="article-card" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#a89880"><img src="https://images.unsplash.com/photo-1543218024-57a70143c369?w=300&q=80" alt="Vineyard"></div>
+          <h3>Organic viticulture in the Gironde: a growing trend</h3>
+          <div class="meta">Wine · Yesterday</div>
+        </div>
+        <div class="article-card" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#9b8a75"><img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=300&q=80" alt="Wine tasting"></div>
+          <h3>Médoc marathon: running through the vineyards raises €120,000</h3>
+          <div class="meta">Wine · 2 days ago</div>
+        </div>
+      </div>
     </div>
 
-    <script>
-        // --- DONNÉES ---
-        const state = {
-            lang: 'en',
-            view: 'list',
-            category: 'all',
-            source: 'all',
-            selectedArticle: null
-        };
+    <!-- Verticale Tourism -->
+    <div class="vertical-block">
+      <div class="vertical-title">
+        <h2>Tourism</h2>
+        <a href="verticale.html">All articles ›</a>
+      </div>
+      <div class="articles-grid">
+        <div class="article-card lead" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#7a9e9f"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Lacanau beach"></div>
+          <h3>Lacanau: summer 2026 breaks all records with 1.2 million visitors in July</h3>
+          <div class="meta">Tourism · 1 hour ago</div>
+        </div>
+        <div class="article-card" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#6b8e8f"><img src="https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=300&q=80" alt="Dunes"></div>
+          <h3>Pilat dune: access restrictions extended to protect natural habitat</h3>
+          <div class="meta">Tourism · 4 hours ago</div>
+        </div>
+        <div class="article-card" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#5a7d7e"><img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=300&q=80" alt="Bordeaux"></div>
+          <h3>Bordeaux named top European city break destination for 2026</h3>
+          <div class="meta">Tourism · Yesterday</div>
+        </div>
+        <div class="article-card" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#4a6d6e"><img src="https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=300&q=80" alt="Basque coast"></div>
+          <h3>Basque coast surf season: international competitions return to Hossegor</h3>
+          <div class="meta">Tourism · 2 days ago</div>
+        </div>
+      </div>
+    </div>
 
-        const content = {
-            en: {
-                tagline: "The best of the group Sud Ouest news, automatically translated for you.",
-                categories: { all: "All", food: "Gastronomy", wine: "Wine", realestate: "Real Estate" },
-                sources: "Sources",
-                readMore: "Read more",
-                viewOriginal: "View original article",
-                backToList: "Back to news",
-                aiNotice: "AI-Translated Content",
-                aiDisclaimer: "This article has been translated from French by an artificial intelligence. Some nuances may differ from the original version.",
-                free: "Free Access",
-                adLabel: "Advertisement",
-                related: "Related articles"
-            },
-            es: {
-                tagline: "Lo mejor de las noticias del grupo Sud Ouest, traducido automáticamente para usted.",
-                categories: { all: "Todo", food: "Gastronomía", wine: "Vino", realestate: "Inmobiliario" },
-                sources: "Fuentes",
-                readMore: "Leer más",
-                viewOriginal: "Ver artículo original",
-                backToList: "Volver a noticias",
-                aiNotice: "Contenido traducido por IA",
-                aiDisclaimer: "Este artículo ha sido traducido del francés por una inteligencia artificial. Algunos matices pueden diferir de la versión original.",
-                free: "Acceso gratuito",
-                adLabel: "Publicidad",
-                related: "Artículos relacionados"
-            },
-            de: {
-                tagline: "Das Beste aus den Nachrichten der Gruppe Sud Ouest, automatisch für Sie übersetzt.",
-                categories: { all: "Alle", food: "Gastronomie", wine: "Wein", realestate: "Immobilien" },
-                sources: "Quellen",
-                readMore: "Weiterlesen",
-                viewOriginal: "Originalartikel ansehen",
-                backToList: "Zurück zu den Nachrichten",
-                aiNotice: "KI-übersetzter Inhalt",
-                aiDisclaimer: "Dieser Artikel wurde von einer künstlichen Intelligenz aus dem Französischen übersetzt. Einige Nuancen können von der Originalversion abweichen.",
-                free: "Kostenloser Zugang",
-                adLabel: "Anzeige",
-                related: "Ähnliche Artikel"
-            }
-        };
+    <!-- Verticale Gastronomy -->
+    <div class="vertical-block">
+      <div class="vertical-title">
+        <h2>Gastronomy</h2>
+        <a href="verticale.html">All articles ›</a>
+      </div>
+      <div class="articles-grid">
+        <div class="article-card lead" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#8a6a4a"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Gastronomy"></div>
+          <h3>Gastronomy: Gueuleton, the saga of an international brand born between Bordeaux and Agen</h3>
+          <div class="meta">Gastronomy · 3 hours ago</div>
+        </div>
+        <div class="article-card" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#7a5a3a"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300&q=80" alt="Food"></div>
+          <h3>Bayonne ham: the PDO label attracts international buyers</h3>
+          <div class="meta">Gastronomy · 6 hours ago</div>
+        </div>
+        <div class="article-card" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#6a4a2a"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=300&q=80" alt="Burger"></div>
+          <h3>Biarritz: three new restaurants awarded Michelin stars in 2026</h3>
+          <div class="meta">Gastronomy · Yesterday</div>
+        </div>
+        <div class="article-card" onclick="location.href='article.html'">
+          <div class="img-wrap" style="background:#5a3a1a"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=300&q=80" alt="Canele"></div>
+          <h3>The canelé conquers the world: how Bordeaux's iconic pastry went global</h3>
+          <div class="meta">Gastronomy · 2 days ago</div>
+        </div>
+      </div>
+    </div>
 
-        // Génération de 21 articles (3 par source)
-        const articles = [
-            // SUD OUEST
-            {
-                id: 1, category: 'wine', source: 'Sud Ouest', author: 'Jean-Pierre Stahl', originalUrl: '#', date: '2024-05-13',
-                img: 'https://images.unsplash.com/photo-1504275107627-0c2ba7a43dba?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Bordeaux 2023: The vintage of balance", excerpt: "First tastings reveal a surprising freshness despite the summer heat...", body: ["Critics gathered in Bordeaux for the En Primeur week.", "The 2023 vintage is surprising many with its elegance and precision.", "AD_SLOT", "Most estates report that the limestone soils played a crucial role."] },
-                    es: { title: "Burdeos 2023: La añada del equilibrio", excerpt: "Las primeras catas revelan una frescura sorprendente...", body: ["Los críticos se reunieron en Burdeos para la semana de las primicias.", "AD_SLOT", "La cosecha 2023 sorprende por su elegancia."] },
-                    de: { title: "Bordeaux 2023: Ein Jahrgang der Balance", excerpt: "Erste Verkostungen offenbaren eine überraschende Frische...", body: ["Kritiker versammelten sich in Bordeaux zur Primeur-Woche.", "AD_SLOT", "Der Jahrgang 2023 überrascht durch seine Eleganz."] }
-                }
-            },
-            {
-                id: 2, category: 'realestate', source: 'Sud Ouest', author: 'Xavier Sota', originalUrl: '#', date: '2024-05-12',
-                img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Coastal Real Estate: A market at two speeds", excerpt: "While luxury remains stable, middle-range properties are seeing a cooldown...", body: ["The Atlantic coast continues to attract investors, but the context is changing.", "AD_SLOT", "Energy ratings are now a major factor in property valuation."] },
-                    es: { title: "Inmobiliaria Costera: Un mercado a dos velocidades", excerpt: "Mientras el lujo se mantiene estable, la gama media se enfría...", body: ["La costa atlántica sigue atrayendo inversores.", "AD_SLOT", "La eficiencia energética es ahora un factor clave."] },
-                    de: { title: "Küstenimmobilien: Ein Markt der zwei Geschwindigkeiten", excerpt: "Luxus bleibt stabil, während die Mittelklasse abkühlt...", body: ["Die Atlantikküste zieht weiterhin Investoren an.", "AD_SLOT", "Die Energieeffizienz ist heute ein entscheidender Faktor."] }
-                }
-            },
-            {
-                id: 3, category: 'food', source: 'Sud Ouest', author: 'Benoît Lasserre', originalUrl: '#', date: '2024-05-11',
-                img: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Oysters: The return of traditional techniques", excerpt: "Arcachon farmers are reviving ancient methods to improve quality...", body: ["Sustainability is at the heart of the new oyster farming strategy.", "AD_SLOT", "Young producers are focusing on the natural cycle of the basins."] },
-                    es: { title: "Ostras: El regreso de las técnicas tradicionales", excerpt: "Los ostricultores de Arcachón reviven métodos antiguos...", body: ["La sostenibilidad está en el centro de la nueva estrategia.", "AD_SLOT", "Los jóvenes productores apuestan por los ciclos naturales."] },
-                    de: { title: "Austern: Rückkehr zu traditionellen Techniken", excerpt: "Austernzüchter in Arcachon beleben alte Methoden wieder...", body: ["Nachhaltigkeit steht im Mittelpunkt der neuen Strategie.", "AD_SLOT", "Junge Produzenten setzen auf natürliche Zyklen."] }
-                }
-            },
-            // CHARENTE LIBRE
-            {
-                id: 4, category: 'wine', source: 'Charente Libre', author: 'Céline Aucher', originalUrl: '#', date: '2024-05-10',
-                img: 'https://images.unsplash.com/photo-1510850431481-7a2ba2d32ea0?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Cognac: The export challenge", excerpt: "Major houses are adapting their strategies for the Asian market...", body: ["Cognac exports remain vital for the regional economy.", "AD_SLOT", "Innovation in packaging is key to attracting new consumers."] },
-                    es: { title: "Cognac: El desafío de la exportación", excerpt: "Las grandes casas adaptan su estrategia para el mercado asiático...", body: ["Las exportaciones siguen siendo vitales para la economía local.", "AD_SLOT", "La innovación es clave para atraer nuevos consumidores."] },
-                    de: { title: "Cognac: Die Herausforderung des Exports", excerpt: "Große Häuser passen ihre Strategien für den asiatischen Markt an...", body: ["Exporte bleiben lebenswichtig für die regionale Wirtschaft.", "AD_SLOT", "Innovation ist der Schlüssel zu neuen Konsumenten."] }
-                }
-            },
-            {
-                id: 5, category: 'food', source: 'Charente Libre', author: 'Richard Tallet', originalUrl: '#', date: '2024-05-09',
-                img: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Angoulême Market: A gourmet renovation", excerpt: "The city's historic market hall gets a modern gastronomic update...", body: ["Local producers are now sharing space with upscale bistros.", "AD_SLOT", "The renovation aims to revitalize the city center through food."] },
-                    es: { title: "Mercado de Angulema: Una renovación gourmet", excerpt: "El mercado histórico se actualiza con una oferta moderna...", body: ["Los productores locales conviven con bistrós de alta gama.", "AD_SLOT", "La renovación busca revitalizar el centro histórico."] },
-                    de: { title: "Markt von Angoulême: Eine Gourmet-Renovierung", excerpt: "Die historische Markthalle erhält ein modernes Update...", body: ["Lokale Produzenten teilen sich den Platz mit gehobenen Bistros.", "AD_SLOT", "Die Renovierung soll das Stadtzentrum beleben."] }
-                }
-            },
-            {
-                id: 6, category: 'realestate', source: 'Charente Libre', author: 'CL Staff', originalUrl: '#', date: '2024-05-08',
-                img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Old stones: The success of rural manors", excerpt: "City dwellers are flocking to the Charente countryside for space...", body: ["Large properties are selling faster than before the pandemic.", "AD_SLOT", "Connectivity remains the primary concern for remote workers."] },
-                    es: { title: "Piedras antiguas: El éxito de las mansiones rurales", excerpt: "Los habitantes de la ciudad buscan espacio en el campo...", body: ["Las grandes propiedades se venden más rápido ahora.", "AD_SLOT", "La conectividad es la mayor preocupación de los teletrabajadores."] },
-                    de: { title: "Alte Steine: Der Erfolg ländlicher Herrenhäuser", excerpt: "Städter zieht es für mehr Platz in die Charente-Landschaft...", body: ["Große Anwesen verkaufen sich schneller als vor der Pandemie.", "AD_SLOT", "Konnektivität ist die Hauptsorge für Homeoffice-Nutzer."] }
-                }
-            },
-            // LA RÉPUBLIQUE DES PYRÉNÉES
-            {
-                id: 7, category: 'realestate', source: 'La République des Pyrénées', author: 'RP Staff', originalUrl: '#', date: '2024-05-07',
-                img: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Mountain Chalets: A dream out of reach?", excerpt: "Property prices in the Pyrenees stations are reaching new highs...", body: ["Demand for secondary homes in the mountains is soaring.", "AD_SLOT", "Local residents are finding it difficult to stay in their villages."] },
-                    es: { title: "Chalets de montaña: ¿Un sueño inalcanzable?", excerpt: "Los precios en las estaciones de los Pirineos alcanzan máximos...", body: ["La demanda de segundas residencias en la montaña se dispara.", "AD_SLOT", "Los residentes locales tienen dificultades para quedarse."] },
-                    de: { title: "Berghütten: Ein unerreichbarer Traum?", excerpt: "Immobilienpreise in den Pyrenäen-Stationen erreichen neue Höchstwerte...", body: ["Die Nachfrage nach Zweitwohnungen in den Bergen boomt.", "AD_SLOT", "Einheimische finden kaum noch bezahlbaren Wohnraum."] }
-                }
-            },
-            {
-                id: 8, category: 'food', source: 'La République des Pyrénées', author: 'E. Normandin', originalUrl: '#', date: '2024-05-06',
-                img: 'https://images.unsplash.com/photo-1551462147-ff29053bfc14?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Ossau-Iraty: The secrets of high-altitude cheese", excerpt: "Shepherds are starting the summer migration to the mountain pastures...", body: ["Tradition meets quality in this AOC sheep cheese.", "AD_SLOT", "Modern logistics help transport these artisan products globally."] },
-                    es: { title: "Ossau-Iraty: Los secretos del queso de altura", excerpt: "Los pastores inician la trashumancia hacia los pastos...", body: ["La tradición se une a la calidad en este queso de oveja.", "AD_SLOT", "La logística moderna ayuda a su distribución global."] },
-                    de: { title: "Ossau-Iraty: Die Geheimnisse des Hochgebirgskäses", excerpt: "Die Hirten beginnen den Almauftrieb in die Pyrenäen...", body: ["Tradition trifft Qualität bei diesem AOC-Schafskäse.", "AD_SLOT", "Moderne Logistik hilft beim weltweiten Versand."] }
-                }
-            },
-            {
-                id: 9, category: 'wine', source: 'La République des Pyrénées', author: 'J.P. Stahl', originalUrl: '#', date: '2024-05-05',
-                img: 'https://images.unsplash.com/photo-1547595628-c61a29f496f0?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Jurançon: The golden wines of the foothills", excerpt: "How small winemakers are keeping the sweet wine tradition alive...", body: ["The unique climate of the foothills gives Jurançon its character.", "AD_SLOT", "Dry versions are increasingly popular in international dining."] },
-                    es: { title: "Jurançon: Los vinos dorados de las colinas", excerpt: "Los viticultores mantienen viva la tradición de los dulces...", body: ["El clima único de las colinas define el carácter del Jurançon.", "AD_SLOT", "Las versiones secas ganan terreno en la gastronomía mundial."] },
-                    de: { title: "Jurançon: Die goldenen Weine der Voralpen", excerpt: "Wie Winzer die Tradition der Süßweine am Leben erhalten...", body: ["Das Klima der Voralpen verleiht dem Jurançon seinen Charakter.", "AD_SLOT", "Trockene Varianten werden international immer beliebter."] }
-                }
-            },
-            // DORDOGNE LIBRE
-            {
-                id: 10, category: 'food', source: 'Dordogne Libre', author: 'DL Staff', originalUrl: '#', date: '2024-05-04',
-                img: 'https://images.unsplash.com/photo-1512132411229-c30391241dd8?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Périgord Truffles: A complex season", excerpt: "The 'Black Diamond' harvest is smaller but higher in quality this year...", body: ["Climate change is impacting the traditional truffle grounds.", "AD_SLOT", "A new tracking system ensures authenticity for buyers."] },
-                    es: { title: "Trufas del Périgord: Una temporada compleja", excerpt: "La cosecha del 'Diamante Negro' es menor pero de gran calidad...", body: ["El cambio climático afecta a las zonas truferas tradicionales.", "AD_SLOT", "Un nuevo sistema asegura la autenticidad para el comprador."] },
-                    de: { title: "Périgord-Trüffel: Eine komplexe Saison", excerpt: "Die Ernte des 'Schwarzen Diamanten' ist kleiner, aber hochwertiger...", body: ["Der Klimawandel beeinflusst die traditionellen Trüffelgebiete.", "AD_SLOT", "Ein neues Trackingsystem garantiert die Echtheit."] }
-                }
-            },
-            {
-                id: 11, category: 'realestate', source: 'Dordogne Libre', author: 'G. Pierre', originalUrl: '#', date: '2024-05-03',
-                img: 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Castle for sale: The appeal of history", excerpt: "Dordogne remains the top destination for buyers of historic estates...", body: ["Living in a castle is a dream for many international buyers.", "AD_SLOT", "Maintenance costs remain the main hurdle for new owners."] },
-                    es: { title: "Castillo en venta: El atractivo de la historia", excerpt: "Dordoña sigue siendo el destino top para fincas históricas...", body: ["Vivir en un castillo es el sueño de muchos compradores.", "AD_SLOT", "Los costes de mantenimiento son el principal obstáculo."] },
-                    de: { title: "Schloss zu verkaufen: Der Reiz der Geschichte", excerpt: "Die Dordogne bleibt das Ziel für historische Anwesen...", body: ["Ein Schloss zu bewohnen ist der Traum vieler Käufer.", "AD_SLOT", "Unterhaltskosten bleiben die größte Hürde."] }
-                }
-            },
-            {
-                id: 12, category: 'wine', source: 'Dordogne Libre', author: 'DL Staff', originalUrl: '#', date: '2024-05-02',
-                img: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Bergerac Wines: The organic revolution", excerpt: "Local winemakers are leading the way in sustainable viticulture...", body: ["The Bergerac region is seeing a massive shift towards organic.", "AD_SLOT", "Consumer demand for 'clean' wines is driving the market."] },
-                    es: { title: "Vinos de Bergerac: La revolución orgánica", excerpt: "Los viticultores lideran el camino en la sostenibilidad...", body: ["La región de Bergerac vive un cambio masivo hacia lo bío.", "AD_SLOT", "La demanda de vinos 'limpios' impulsa el mercado."] },
-                    de: { title: "Bergerac-Weine: Die Bio-Revolution", excerpt: "Winzer sind führend in nachhaltigem Weinbau...", body: ["Die Region Bergerac erlebt einen massiven Wandel zu Bio.", "AD_SLOT", "Die Nachfrage nach 'sauberen' Weinen treibt den Markt."] }
-                }
-            },
-            // HAUTE GIRONDE
-            {
-                id: 13, category: 'wine', source: 'Haute Gironde', author: 'HG Staff', originalUrl: '#', date: '2024-05-01',
-                img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Blaye & Bourg: Hidden gems of the Estuary", excerpt: "Small châteaux offer high quality and affordable prices...", body: ["The right bank of the Estuary is often overlooked by big labels.", "AD_SLOT", "Wine tourism is growing thanks to the stunning river views."] },
-                    es: { title: "Blaye & Bourg: Joyas ocultas del estuario", excerpt: "Pequeños castillos ofrecen alta calidad a precios asequibles...", body: ["La orilla derecha del estuario suele ser ignorada.", "AD_SLOT", "El enoturismo crece gracias a las vistas del río."] },
-                    de: { title: "Blaye & Bourg: Verborgene Juwelen des Ästuars", excerpt: "Kleine Châteaux bieten hohe Qualität zu fairen Preisen...", body: ["Das rechte Ufer des Ästuars wird oft übersehen.", "AD_SLOT", "Der Weintourismus wächst dank der Flusslandschaft."] }
-                }
-            },
-            {
-                id: 14, category: 'food', source: 'Haute Gironde', author: 'M. Dubois', originalUrl: '#', date: '2024-04-30',
-                img: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Estuary flavors: A return to local sourcing", excerpt: "Chefs in Blaye are focusing on river products and terroir...", body: ["The 'Gironde Estuary' plate is becoming a culinary brand.", "AD_SLOT", "Ancient recipes are being reinvented for modern tastes."] },
-                    es: { title: "Sabores del estuario: Vuelta al producto local", excerpt: "Los chefs de Blaye se centran en los productos del río...", body: ["El plato 'Estuario del Gironda' es ya una marca culinaria.", "AD_SLOT", "Las recetas antiguas se reinventan para hoy."] },
-                    de: { title: "Aromen des Ästuars: Rückkehr zu lokalen Produkten", excerpt: "Köche in Blaye setzen auf Produkte aus dem Fluss...", body: ["Der Teller 'Gironde Ästuar' wird zur kulinarischen Marke.", "AD_SLOT", "Alte Rezepte werden für heute neu erfunden."] }
-                }
-            },
-            {
-                id: 15, category: 'realestate', source: 'Haute Gironde', author: 'HG Staff', originalUrl: '#', date: '2024-04-29',
-                img: 'https://images.unsplash.com/photo-1516156008625-3a9d6067fad5?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Citadel lifestyle: Living in historic Blaye", excerpt: "Buying property inside or near the UNESCO site is booming...", body: ["The UNESCO status has boosted property values significantly.", "AD_SLOT", "Renovation projects must follow strict architectural guidelines."] },
-                    es: { title: "Estilo Ciudadela: Vivir en la histórica Blaye", excerpt: "La compra de inmuebles cerca del sitio UNESCO se dispara...", body: ["El estatus UNESCO ha aumentado los valores inmobiliarios.", "AD_SLOT", "La renovación sigue normas arquitectónicas estrictas."] },
-                    de: { title: "Citadel Lifestyle: Leben im historischen Blaye", excerpt: "Immobilienkauf nahe der UNESCO-Stätte boomt...", body: ["Der UNESCO-Status hat die Immobilienpreise deutlich erhöht.", "AD_SLOT", "Renovierungen unterliegen strengen Auflagen."] }
-                }
-            },
-            // LA DÉPÊCHE DU BASSIN
-            {
-                id: 16, category: 'realestate', source: 'La Dépêche du Bassin', author: 'S. Petit', originalUrl: '#', date: '2024-04-28',
-                img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Cap Ferret: The wooden house craze", excerpt: "Traditional cabin style is the absolute must-have for buyers...", body: ["Wood is the dominant material in new high-end constructions.", "AD_SLOT", "Strict environmental rules limit new development on the peninsula."] },
-                    es: { title: "Cap Ferret: La locura por las casas de madera", excerpt: "El estilo tradicional de cabaña es el 'must' para los compradores...", body: ["La madera domina en las nuevas construcciones de lujo.", "AD_SLOT", "Normas ambientales estrictas limitan los nuevos desarrollos."] },
-                    de: { title: "Cap Ferret: Der Trend zum Holzhaus", excerpt: "Der traditionelle Hüttenstil ist das Must-have für Käufer...", body: ["Holz ist das dominante Material im Luxussegment.", "AD_SLOT", "Strenge Umweltauflagen begrenzen Neubauten auf der Halbinsel."] }
-                }
-            },
-            {
-                id: 17, category: 'food', source: 'La Dépêche du Bassin', author: 'DB Staff', originalUrl: '#', date: '2024-04-27',
-                img: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Seafront Dining: The best oyster shacks", excerpt: "A guide to the most authentic tasting experiences on the Basin...", body: ["Direct sales at the port are the best way to enjoy oysters.", "AD_SLOT", "Atmosphere is just as important as the product itself."] },
-                    es: { title: "Comer frente al mar: Las mejores cabañas de ostras", excerpt: "Una guía de las experiencias más auténticas del estuario...", body: ["La venta directa en el puerto es la mejor forma de disfrutar.", "AD_SLOT", "El ambiente es tan importante como el producto."] },
-                    de: { title: "Essen am Meer: Die besten Austernhütten", excerpt: "Ein Guide zu den authentischsten Orten im Bassin...", body: ["Direktverkauf am Hafen ist der beste Weg zum Genuss.", "AD_SLOT", "Das Ambiente ist so wichtig wie das Produkt."] }
-                }
-            },
-            {
-                id: 18, category: 'wine', source: 'La Dépêche du Bassin', author: 'DB Staff', originalUrl: '#', date: '2024-04-26',
-                img: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Dune Wines: Viticulture in the sand", excerpt: "Unique vines planted near the ocean offer surprising saltiness...", body: ["Vines in the sand require a very specific type of labor.", "AD_SLOT", "Production is tiny but highly sought after by top sommeliers."] },
-                    es: { title: "Vinos de la Duna: Viticultura en la arena", excerpt: "Vinas únicas cerca del océano ofrecen un sabor salino...", body: ["La vid en la arena requiere un trabajo muy específico.", "AD_SLOT", "La producción es mínima pero muy buscada por expertos."] },
-                    de: { title: "Dünenweine: Weinbau im Sand", excerpt: "Einzigartige Reben am Ozean bieten eine salzige Note...", body: ["Reben im Sand erfordern eine ganz spezielle Pflege.", "AD_SLOT", "Die Produktion ist klein, aber bei Sommeliers begehrt."] }
-                }
-            },
-            // TERRE DE VINS
-            {
-                id: 19, category: 'wine', source: 'Terre de Vins', author: 'L. Bernaulte', originalUrl: '#', date: '2024-04-25',
-                img: 'https://images.unsplash.com/photo-1504275107627-0c2ba7a43dba?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Global Grands Crus: The impact of climate change", excerpt: "How top estates are adapting their blending for the future...", body: ["Cabernet is becoming more dominant in some traditionally Merlot blends.", "AD_SLOT", "Technology helps predict weather patterns with high precision."] },
-                    es: { title: "Grands Crus Globales: Impacto del cambio climático", excerpt: "Cómo las grandes fincas adaptan sus mezclas a futuro...", body: ["El Cabernet gana peso frente al Merlot en algunas mezclas.", "AD_SLOT", "La tecnología ayuda a predecir el clima con precisión."] },
-                    de: { title: "Globale Grands Crus: Einfluss des Klimawandels", excerpt: "Wie Top-Güter ihre Cuvées für die Zukunft anpassen...", body: ["Cabernet verdrängt den Merlot in einigen Cuvées.", "AD_SLOT", "Technologie hilft, Wetterereignisse präzise vorherzusagen."] }
-                }
-            },
-            {
-                id: 20, category: 'wine', source: 'Terre de Vins', author: 'TdV Staff', originalUrl: '#', date: '2024-04-24',
-                img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Wine Tourism: The rise of luxury lodging", excerpt: "More Châteaux are opening high-end hotels inside their walls...", body: ["Experience-based tourism is the new trend for luxury brands.", "AD_SLOT", "Guests want to live the life of a winemaker for a few days."] },
-                    es: { title: "Enoturismo: El auge del alojamiento de lujo", excerpt: "Más castillos abren hoteles de alta gama en sus muros...", body: ["El turismo de experiencias es la nueva tendencia de lujo.", "AD_SLOT", "Los huéspedes quieren vivir como un viticultor unos días."] },
-                    de: { title: "Weintourismus: Boom der Luxusunterkünfte", excerpt: "Immer mehr Châteaux eröffnen Nobelhotels in ihren Mauern...", body: ["Erlebnistourismus ist der neue Trend im Luxussegment.", "AD_SLOT", "Gäste wollen das Leben eines Winzers hautnah erleben."] }
-                }
-            },
-            {
-                id: 21, category: 'wine', source: 'Terre de Vins', author: 'S. Dubos', originalUrl: '#', date: '2024-04-23',
-                img: 'https://images.unsplash.com/photo-1510850431481-7a2ba2d32ea0?auto=format&fit=crop&q=80&w=800',
-                translations: {
-                    en: { title: "Sparkling Wines: South-West bubbles on the rise", excerpt: "Crémant production is growing as an alternative to Champagne...", body: ["Local sparkling wines are winning medals in international contests.", "AD_SLOT", "The quality-price ratio is unbeatable for these traditional method wines."] },
-                    es: { title: "Espumosos: Burbujas del suroeste al alza", excerpt: "La producción de Crémant crece como alternativa al Champagne...", body: ["Los espumosos locales ganan medallas internacionales.", "AD_SLOT", "La relación calidad-precio es imbatible para estos vinos."] },
-                    de: { title: "Schaumweine: Aufstieg der Südwest-Bubbles", excerpt: "Die Crémant-Produktion wächst als Alternative zum Champagner...", body: ["Lokale Schaumweine gewinnen internationale Medaillen.", "AD_SLOT", "Das Preis-Leistungs-Verhältnis ist bei diesen Weinen unschlagbar."] }
-                }
-            }
-        ];
+  </div>
+</div>
 
-        const sourcesList = ['Sud Ouest', 'Charente Libre', 'La République des Pyrénées', 'Dordogne Libre', 'Haute Gironde', 'La Dépêche du Bassin', 'Terre de Vins'];
-
-        // --- MOTEUR DE RENDU ---
-        function render() {
-            const app = document.getElementById('app');
-            const langContent = content[state.lang];
-
-            if (state.view === 'article' && state.selectedArticle) {
-                app.innerHTML = renderArticlePage(langContent, state.selectedArticle);
-            } else {
-                app.innerHTML = renderListPage(langContent);
-            }
-            lucide.createIcons();
-        }
-
-        function renderListPage(langContent) {
-            const filtered = articles.filter(art => 
-                (state.category === 'all' || art.category === state.category) && 
-                (state.source === 'all' || art.source === state.source)
-            );
-
-            return `
-                ${renderHeader()}
-                ${renderSourceBar(langContent)}
-                <main class="max-w-7xl mx-auto px-4 py-6">
-                    <div class="bg-slate-100 border border-slate-200 flex flex-col items-center justify-center text-slate-400 rounded h-24 mb-8">
-                        <div class="flex items-center gap-2 mb-1"><i data-lucide="megaphone" size="14"></i><span class="text-[9px] font-bold uppercase tracking-widest">${langContent.adLabel}</span></div>
-                        <div class="text-xs italic">Leaderboard 728x90</div>
-                    </div>
-
-                    <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b-2 border-slate-900 pb-4">
-                        <p class="text-slate-500 font-medium italic text-lg">${langContent.tagline}</p>
-                        <div class="text-xs font-bold text-slate-400 uppercase mt-2 md:mt-0">${new Date().toLocaleDateString(state.lang, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
-                    </div>
-
-                    <!-- Hero Section -->
-                    ${state.category === 'all' && state.source === 'all' && filtered.length > 0 ? `
-                        <div onclick="openArticle(${filtered[0].id})" class="mb-12 grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-xl overflow-hidden border border-slate-200 bg-white shadow-xl group cursor-pointer">
-                            <div class="lg:col-span-8 relative h-[400px] lg:h-[500px] overflow-hidden">
-                                <img src="${filtered[0].img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                                <div class="absolute top-4 left-4"><span class="bg-[#005da3] text-white px-3 py-1 text-xs font-black uppercase italic tracking-tighter">${filtered[0].source}</span></div>
-                            </div>
-                            <div class="lg:col-span-4 p-8 flex flex-col justify-center bg-[#f8f9fa]">
-                                <span class="text-[#005da3] font-black uppercase text-sm mb-4 tracking-tighter">${langContent.categories[filtered[0].category]}</span>
-                                <h2 class="text-3xl font-black text-slate-900 mb-6 leading-none italic uppercase">${filtered[0].translations[state.lang].title}</h2>
-                                <p class="text-slate-600 text-lg mb-8 leading-relaxed">${filtered[0].translations[state.lang].excerpt}</p>
-                                <button class="w-full bg-slate-900 text-white px-8 py-4 font-black italic uppercase transition-colors flex items-center justify-center gap-2 hover:bg-[#005da3]">
-                                    ${langContent.readMore} <i data-lucide="external-link" size="18"></i>
-                                </button>
-                            </div>
-                        </div>
-                    ` : ''}
-
-                    <!-- Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                        ${filtered.slice(state.category === 'all' && state.source === 'all' ? 1 : 0).map((art, idx) => `
-                            ${idx > 0 && idx % 6 === 0 ? `
-                                <div class="bg-slate-100 border border-slate-200 flex flex-col items-center justify-center text-slate-400 rounded h-80">
-                                    <div class="flex items-center gap-2 mb-1"><i data-lucide="megaphone" size="14"></i><span class="text-[9px] font-bold uppercase tracking-widest">${langContent.adLabel}</span></div>
-                                    <div class="text-xs italic">Rectangle 300x250</div>
-                                </div>
-                            ` : ''}
-                            <article onclick="openArticle(${art.id})" class="bg-white group flex flex-col cursor-pointer">
-                                <div class="relative h-64 overflow-hidden mb-4 rounded-lg bg-slate-100">
-                                    <img src="${art.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                                    <div class="absolute bottom-0 left-0 bg-[#005da3] text-white px-2 py-1 text-[10px] font-black uppercase italic">${art.source}</div>
-                                    <div class="absolute top-0 right-0 bg-white/90 backdrop-blur-sm px-2 py-1 text-[8px] font-bold text-slate-500 flex items-center gap-1 uppercase tracking-tighter">
-                                        <i data-lucide="info" size="10"></i> ${langContent.aiNotice}
-                                    </div>
-                                </div>
-                                <div class="flex flex-col flex-grow">
-                                    <div class="flex justify-between items-center mb-2">
-                                        <span class="text-[#005da3] text-[11px] font-black uppercase tracking-wider italic">${langContent.categories[art.category]}</span>
-                                        <span class="text-green-600 text-[10px] font-black border border-green-200 px-1.5 py-0.5 rounded bg-green-50 uppercase italic">${langContent.free}</span>
-                                    </div>
-                                    <h3 class="text-xl font-black text-slate-900 mb-3 group-hover:text-[#005da3] transition-colors leading-tight italic uppercase">${art.translations[state.lang].title}</h3>
-                                    <p class="text-slate-600 text-sm mb-4 line-clamp-3 leading-relaxed">${art.translations[state.lang].excerpt}</p>
-                                    <div class="mt-auto flex justify-between items-center text-slate-400 text-[10px] font-bold uppercase border-t border-slate-50 pt-4">
-                                        <span>${art.date}</span>
-                                        <span class="flex items-center gap-1 text-slate-900 font-black italic">${langContent.readMore} <i data-lucide="external-link" size="12"></i></span>
-                                    </div>
-                                </div>
-                            </article>
-                        `).join('')}
-                    </div>
-                </main>
-                ${renderFooter()}
-            `;
-        }
-
-        function renderArticlePage(langContent, art) {
-            return `
-                ${renderHeader()}
-                <main class="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    <div class="lg:col-span-8">
-                        <div class="mb-4">
-                             <button onclick="changeView('list')" class="text-slate-500 hover:text-[#005da3] transition-colors flex items-center gap-1 font-bold text-xs uppercase tracking-tighter mb-4">
-                                <i data-lucide="arrow-left" size="16"></i> ${langContent.backToList}
-                            </button>
-                        </div>
-                        <div class="mb-6 flex gap-2">
-                           <span class="bg-[#005da3] text-white px-3 py-1 text-[10px] font-black uppercase italic">${art.source}</span>
-                           <span class="text-[#005da3] font-black uppercase text-[10px] border border-[#005da3] px-2 py-1 italic tracking-tighter">${langContent.categories[art.category]}</span>
-                        </div>
-                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-6 italic uppercase leading-none">${art.translations[state.lang].title}</h1>
-                        
-                        <div class="flex items-center justify-between py-4 border-y border-slate-100 mb-8 text-slate-400 text-xs font-bold uppercase">
-                          <div class="flex items-center gap-4">
-                            <span class="flex items-center gap-1 text-slate-900"><i data-lucide="user" size="14"></i> ${art.author || 'Sud Ouest Staff'}</span>
-                            <span class="flex items-center gap-1"><i data-lucide="clock" size="14"></i> 4 min read</span>
-                            <span>${art.date}</span>
-                          </div>
-                          <div class="flex gap-2">
-                             <a href="${art.originalUrl || '#'}" target="_blank" class="flex items-center gap-1 text-[#005da3] hover:underline">
-                                ${langContent.viewOriginal} <i data-lucide="external-link" size="12"></i>
-                             </a>
-                          </div>
-                        </div>
-
-                        <img src="${art.img}" class="w-full h-auto rounded-xl mb-8" />
-                        
-                        <div class="bg-blue-50 border-l-4 border-[#005da3] p-4 mb-8 flex items-start gap-3">
-                            <i data-lucide="info" size="20" class="text-[#005da3] shrink-0 mt-0.5"></i>
-                            <p class="text-xs text-slate-600 leading-relaxed font-medium">${langContent.aiDisclaimer}</p>
-                        </div>
-
-                        <div class="prose prose-slate max-w-none">
-                            <p class="text-xl font-bold text-slate-700 mb-8">${art.translations[state.lang].excerpt}</p>
-                            
-                            ${art.translations[state.lang].body.map(para => {
-                                if (para === 'AD_SLOT') {
-                                    return `
-                                        <div class="bg-slate-50 border border-slate-200 flex flex-col items-center justify-center text-slate-400 rounded h-64 my-10">
-                                            <div class="flex items-center gap-2 mb-1"><i data-lucide="megaphone" size="14"></i><span class="text-[9px] font-bold uppercase tracking-widest">${langContent.adLabel}</span></div>
-                                            <div class="text-xs italic">Inline Rectangle 300x250</div>
-                                        </div>
-                                    `;
-                                }
-                                return `<p class="text-lg text-slate-800 leading-loose mb-6">${para}</p>`;
-                            }).join('')}
-                        </div>
-                    </div>
-                    <div class="lg:col-span-4">
-                        <div class="bg-slate-100 border border-slate-200 flex flex-col items-center justify-center text-slate-400 rounded h-80 sticky top-24">
-                            <div class="flex items-center gap-2 mb-1"><i data-lucide="megaphone" size="14"></i><span class="text-[9px] font-bold uppercase tracking-widest">${langContent.adLabel}</span></div>
-                            <div class="text-xs italic">Rectangle 300x600</div>
-                        </div>
-                    </div>
-                </main>
-                ${renderFooter()}
-            `;
-        }
-
-        function renderHeader() {
-            return `
-                <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-                    <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-                        <div onclick="changeView('list')" class="flex items-center gap-3 cursor-pointer">
-                            <div class="bg-[#005da3] text-white p-2 rounded flex flex-col items-center justify-center leading-none">
-                                <span class="text-xl font-black italic tracking-tighter">SO</span>
-                            </div>
-                            <div class="hidden sm:flex flex-col">
-                                <span class="text-2xl font-black italic text-[#005da3] tracking-tighter leading-none uppercase">Sud Ouest</span>
-                                <span class="text-[10px] font-bold text-red-600 tracking-[0.2em] leading-none uppercase">International</span>
-                            </div>
-                        </div>
-                        <nav class="hidden md:flex items-center gap-8 font-bold text-sm uppercase tracking-tight text-slate-600">
-                            <button onclick="setCategory('all')" class="${state.category === 'all' ? 'text-[#005da3] border-b-4 border-[#005da3] pt-1' : ''}">All</button>
-                            <button onclick="setCategory('food')" class="${state.category === 'food' ? 'text-[#005da3] border-b-4 border-[#005da3] pt-1' : ''}">Gastronomy</button>
-                            <button onclick="setCategory('wine')" class="${state.category === 'wine' ? 'text-[#005da3] border-b-4 border-[#005da3] pt-1' : ''}">Wine</button>
-                            <button onclick="setCategory('realestate')" class="${state.category === 'realestate' ? 'text-[#005da3] border-b-4 border-[#005da3] pt-1' : ''}">Real Estate</button>
-                        </nav>
-                        <select onchange="changeLang(this.value)" class="bg-slate-50 border border-slate-200 px-3 py-2 rounded font-black text-sm uppercase outline-none">
-                            <option value="en" ${state.lang === 'en' ? 'selected' : ''}>EN</option>
-                            <option value="es" ${state.lang === 'es' ? 'selected' : ''}>ES</option>
-                            <option value="de" ${state.lang === 'de' ? 'selected' : ''}>DE</option>
-                        </select>
-                    </div>
-                </header>
-            `;
-        }
-
-        function renderSourceBar(langContent) {
-            return `
-                <div class="bg-white border-b border-slate-100 overflow-x-auto scrollbar-hide">
-                    <div class="max-w-7xl mx-auto px-4 py-3 flex gap-3 text-xs items-center whitespace-nowrap font-bold uppercase italic">
-                        <span class="text-slate-400 tracking-widest mr-2">${langContent.sources}:</span>
-                        <button onclick="setSource('all')" class="px-3 py-1.5 rounded ${state.source === 'all' ? 'bg-[#005da3] text-white' : 'bg-slate-100 text-slate-600'}">All</button>
-                        ${sourcesList.map(s => `
-                            <button onclick="setSource('${s}')" class="px-3 py-1.5 rounded ${state.source === s ? 'bg-[#005da3] text-white' : 'bg-slate-100 text-slate-600'}">${s}</button>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderFooter() {
-            return `
-                <footer class="bg-slate-900 text-white mt-20 py-16">
-                    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left mb-12">
-                        <div class="col-span-1 md:col-span-2">
-                            <div class="flex items-center justify-center md:justify-start gap-3 mb-8">
-                                <div class="bg-white text-[#005da3] p-2 rounded flex flex-col items-center justify-center leading-none">
-                                    <span class="text-xl font-black italic tracking-tighter uppercase">SO</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-2xl font-black italic text-white tracking-tighter leading-none uppercase">Sud Ouest</span>
-                                    <span class="text-[10px] font-bold text-red-600 tracking-[0.2em] leading-none uppercase">International</span>
-                                </div>
-                            </div>
-                            <p class="text-slate-400 max-w-sm text-sm mx-auto md:mx-0">
-                                The international gateway to France's premier regional news network. Powered by advanced AI translation for a global audience.
-                            </p>
-                        </div>
-                        <div>
-                            <h4 class="font-black mb-6 text-white uppercase text-xs tracking-[0.2em] border-b border-slate-800 pb-2 italic">Network</h4>
-                            <ul class="space-y-3 text-slate-400 text-[10px] font-bold uppercase">
-                                ${sourcesList.map(s => `<li class="hover:text-white cursor-pointer">${s}</li>`).join('')}
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-black mb-6 text-white uppercase text-xs tracking-[0.2em] border-b border-slate-800 pb-2 italic">Legal</h4>
-                            <ul class="space-y-3 text-slate-400 text-[10px] font-bold uppercase">
-                                <li class="hover:text-white cursor-pointer">About AI Translation</li>
-                                <li class="hover:text-white cursor-pointer">Privacy Policy</li>
-                                <li class="hover:text-white cursor-pointer">Terms of Service</li>
-                                <li class="hover:text-white cursor-pointer">Contact Us</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="max-w-7xl mx-auto px-4 pt-8 border-t border-slate-800 text-center text-slate-500 text-[9px] font-bold uppercase tracking-widest">
-                        © 2024 Groupe Sud Ouest. Internal export version.
-                    </div>
-                </footer>
-            `;
-        }
-
-        // --- ACTIONS ---
-        window.changeLang = (l) => { state.lang = l; render(); };
-        window.setCategory = (c) => { state.category = c; state.view = 'list'; render(); };
-        window.setSource = (s) => { state.source = s; state.view = 'list'; render(); };
-        window.changeView = (v) => { state.view = v; render(); window.scrollTo(0,0); };
-        window.openArticle = (id) => { state.selectedArticle = articles.find(a => a.id === id); changeView('article'); };
-
-        // --- INIT ---
-        render();
-
-    </script>
+<div id="footer"></div>
+<script src="shared.js"></script>
+<script>
+document.getElementById('demo-bar').innerHTML = renderDemoBar('index.html');
+document.getElementById('nav').innerHTML = renderNav('');
+document.getElementById('pub-top').innerHTML = renderPubBanner();
+document.getElementById('footer').innerHTML = renderFooter();
+</script>
 </body>
 </html>
