@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wine — sudouest.com</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="demo-bar"></div>
+<div id="nav"></div>
+<div id="pub-top"></div>
+
+<div class="page-wrap">
+  <div class="vertical-header">
+    <div class="breadcrumb"><a href="index.html">Welcome</a> › <span>Wine</span></div>
+    <h1>Wine</h1>
+  </div>
+
+  <div class="list-layout">
+    <div class="articles-list">
+
+      <!-- Lead article -->
+      <div class="list-article" onclick="location.href='article.html'">
+        <div class="list-img"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=700&q=80" alt="Wine" style="width:100%;height:280px;object-fit:cover"></div>
+        <div>
+          <h3>Bordeaux 2025 vintage: winemakers optimistic despite spring frosts — a complete guide to the season</h3>
+          <div class="meta">By Pauline Gallard · Published on 08/06/2026 · Reading time: 3 min</div>
+        </div>
+      </div>
+
+      <!-- List articles -->
+      <div class="list-article" onclick="location.href='article.html'">
+        <div class="list-img"><img src="https://images.unsplash.com/photo-1474722883778-792e7990302f?w=200&q=80" alt="" style="width:120px;height:80px;object-fit:cover"></div>
+        <div>
+          <h3>Saint-Émilion: new classification sparks controversy among producers and negociants</h3>
+          <div class="meta">Wine · 5 hours ago</div>
+        </div>
+      </div>
+      <div class="list-article" onclick="location.href='article.html'">
+        <div class="list-img"><img src="https://images.unsplash.com/photo-1543218024-57a70143c369?w=200&q=80" alt="" style="width:120px;height:80px;object-fit:cover"></div>
+        <div>
+          <h3>Organic viticulture in the Gironde: a growing trend among young winemakers</h3>
+          <div class="meta">Wine · Yesterday</div>
+        </div>
+      </div>
+      <div class="list-article" onclick="location.href='article.html'">
+        <div class="list-img"><img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=200&q=80" alt="" style="width:120px;height:80px;object-fit:cover"></div>
+        <div>
+          <h3>Médoc marathon: running through the vineyards raises €120,000 for local charities</h3>
+          <div class="meta">Wine · 2 days ago</div>
+        </div>
+      </div>
+      <div class="list-article" onclick="location.href='article.html'">
+        <div class="list-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=80" alt="" style="width:120px;height:80px;object-fit:cover"></div>
+        <div>
+          <h3>Pomerol: Le Pin estate breaks auction records at Christie's London for the third year running</h3>
+          <div class="meta">Wine · 3 days ago</div>
+        </div>
+      </div>
+      <div class="list-article" onclick="location.href='article-payant.html'">
+        <div class="list-img"><img src="https://images.unsplash.com/photo-1425421669292-0c3da3b8f529?w=200&q=80" alt="" style="width:120px;height:80px;object-fit:cover"></div>
+        <div>
+          <h3>🔒 [Premium] How Bordeaux négociants are adapting to the Chinese market slowdown</h3>
+          <div class="meta">Wine · 4 days ago</div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <span class="cur">1</span>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">…</a>
+        <a href="#">640</a>
+        <a href="#">›</a>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div>
+      <div class="sidebar-widget">
+        <h4>Follow us</h4>
+        <div class="social-links">
+          <a href="#">f</a><a href="#">@</a><a href="#">in</a>
+        </div>
+      </div>
+      <div class="pub-side">Advertisement — 300×250</div>
+      <br>
+      <div class="sidebar-widget">
+        <h4>Also available in</h4>
+        <p style="font-size:12px;color:#555;margin-bottom:8px">This section in other languages:</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <a href="#" style="font-size:12px;color:#D42E1B">🇫🇷 Vin — sudouest.fr/gastronomie/vin/</a>
+          <a href="#" style="font-size:12px;color:#D42E1B">🇪🇸 Vino — sudouest.com/es/vino/</a>
+          <a href="#" style="font-size:12px;color:#D42E1B">🇩🇪 Wein — sudouest.com/de/wein/</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer"></div>
+<script src="shared.js"></script>
+<script>
+document.getElementById('demo-bar').innerHTML = renderDemoBar('verticale.html');
+document.getElementById('nav').innerHTML = renderNav('Wine');
+document.getElementById('pub-top').innerHTML = renderPubBanner();
+document.getElementById('footer').innerHTML = renderFooter();
+</script>
+</body>
+</html>
