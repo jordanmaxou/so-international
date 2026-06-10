@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shipo</title>
+  <style>
+    :root {
+      --accent: #00b4a6;
+      --accent-dim: #007f75;
+      --danger: #ef4444;
+      --muted: #6b7280;
+      --border: #e2e8f0;
+      --radius: 8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: transparent;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      white-space: nowrap;
+    }
+    input[type="text"] {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 12px;
+      padding: 6px 10px;
+      outline: none;
+      color: #1a2533;
+      transition: border-color .15s;
+    }
+    input[type="text"]:focus { border-color: var(--accent); }
+    input[type="text"]::placeholder { color: #b0bbc8; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+      transition: background .15s, opacity .15s;
+    }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-primary  { background: var(--accent); color: #fff; }
+    .btn-primary:not(:disabled):hover { background: var(--accent-dim); }
+    .btn-outline  { background: transparent; border: 1px solid var(--border); color: #1a2533; }
+    .btn-outline:not(:disabled):hover { border-color: var(--accent); color: var(--accent); }
+    .divider { height: 1px; background: var(--border); }
+    .status {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 18px;
+    }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+      transition: background .3s;
+    }
+    .dot.ok    { background: var(--accent); box-shadow: 0 0 5px var(--accent); }
+    .dot.error { background: var(--danger); }
+  </style>
+</head>
+<body>
+
+  <!-- Étape 1 : ouvrir Shipo -->
+  <div class="row">
+    <span class="label">1</span>
+    <input type="text" id="shipoUrl" placeholder="https://shipo.example.com" />
+    <button class="btn btn-primary" id="btnOpen" onclick="handleOpen()">▶ Ouvrir Shipo</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Étape 2 : ouvrir la fiche -->
+  <div class="row">
+    <span class="label">2</span>
+    <button class="btn btn-outline" id="btnClient" onclick="handleClient()" disabled>
+      ⬡ Ouvrir la fiche abonné
+    </button>
+  </div>
+
+  <div class="status">
+    <span class="dot" id="dot"></span>
+    <span id="msg">Ouvrez Shipo pour commencer.</span>
+  </div>
+
+  <script>
+    var params   = new URLSearchParams(window.location.search);
+    var clientId = params.get("id_abonne") || params.get("id") || "";
+
+    var shipoAPP   = null;
+    var reqCounter = 1;
+
+    function setStatus(state, msg) {
+      document.getElementById("dot").className = "dot" + (state ? " " + state : "");
+      document.getElementById("msg").textContent = msg;
+    }
+
+    function handleOpen() {
+      var url = document.getElementById("shipoUrl").value.trim();
+      if (!url) { setStatus("error", "Veuillez saisir l'URL de Shipo."); return; }
+      shipoAPP = window.open(url);
+      document.getElementById("btnOpen").disabled = true;
+      document.getElementById("btnClient").disabled = false;
+      setStatus("ok", "Shipo ouvert — cliquez sur « Ouvrir la fiche ».");
+    }
+
+    function handleClient() {
+      if (!clientId) { setStatus("error", "Paramètre id_abonne manquant dans l'URL."); return; }
+      if (!shipoAPP || shipoAPP.closed) {
+        setStatus("error", "Fenêtre Shipo fermée — rouvrez-la.");
+        document.getElementById("btnOpen").disabled = false;
+        document.getElementById("btnClient").disabled = true;
+        return;
+      }
+      var url    = document.getElementById("shipoUrl").value.trim();
+      var reqId  = "REQ-" + (reqCounter++);
+      var msg    = JSON.stringify({ openCrmCustomer: { requestID: reqId, clientID: clientId } });
+      shipoAPP.postMessage(msg, url);
+      shipoAPP.focus();
+      setStatus("ok", "Fiche abonné " + clientId + " ouverte dans Shipo.");
+    }
+  </script>
+
+</body>
+</html>
