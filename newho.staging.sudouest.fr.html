@@ -5004,7 +5004,10 @@ h+='\x3cdiv class\x3d"right"\x3e';h+=t;h+="\x3c/div\x3e";h+='\x3cdiv class\x3d"l
     href:  a.getAttribute('href'),
   })).filter(t => t.label);
   const storiesBlock = document.querySelector('.block-hot-tag-stories');
-  if (storiesBlock) storiesBlock.style.display = 'none';
+// On récupère les paramètres de recherche de l'URL actuelle
+const urlParams = new URLSearchParams(window.location.search);
+
+  if (storiesBlock && urlParams.get('stories') !== 'true') storiesBlock.style.display = 'none';
   /* ══════════════════════════════════════════════════════════
      BARRE NAV TOPICS
   ══════════════════════════════════════════════════════════ */
